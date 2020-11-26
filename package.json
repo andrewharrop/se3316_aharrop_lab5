@@ -1,0 +1,19 @@
+{
+  "name": "lab5webtech",
+  "version": "1.0.0",
+  "description": "Lab 5 for se3316a web technologies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewharrop/se3316_aharrop_lab5.git"
+  },
+  "author": "Andrew Harrop",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewharrop/se3316_aharrop_lab5/issues"
+  },
+  "homepage": "https://github.com/andrewharrop/se3316_aharrop_lab5#readme"
+}
