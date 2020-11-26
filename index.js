@@ -19,23 +19,31 @@ const users = require('./routes/users');
 const admin = require('./routes/admin');
 const public = require('./routes/public');
 
+const config = require('./config/database')
+
+//Connect to DB
+mongoose.connect(config.database, { useUnifiedTopology: true })
+
+
+//Express routing
+const app = express();
+
 //Routing based on status
 app.use('/users', users);
-app.use('/admin', admin);
-app.use('/public', public);
+//app.use('/admin', admin);
+//app.use('/public', public);
 
 //Configuration for deployment.  Generated dist must be placed in here
 app.use(express.static(path.join(__dirname, "public")));
 
-//Express routing
-const app = express();
+
 
 //Port to listen from
 const port = 3000;
 
 //Request handling middleware
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded());
+app.use(bodyparser.urlencoded({ extended: true }));
 
 //Passport middleware
 app.use(passport.initialize());

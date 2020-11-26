@@ -17,12 +17,13 @@
     },
     "homepage": "https://github.com/andrewharrop/se3316_aharrop_lab5#readme",
     "dependencies": {
+        "bcrypt": "*",
         "body-parser": "^1.19.0",
         "express": "^4.17.1",
-        "passport": "^0.4.1",
+        "jsonwebtoken": "*",
         "mongoose": "*",
-        "bcrypt": "*",
+        "nodemon": "^2.0.6",
+        "passport": "^0.4.1",
         "passport-jwt": "*"
-
     }
 }

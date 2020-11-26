@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const config = require('../config/database')
 const UserSchema = mongoose.Schema({
     name: {
         type: String
@@ -29,10 +29,10 @@ module.exports.getUserById = (id, callback) => {
     User.findOne(id, callback)
 }
 module.exports.getUserByEmail = (email, callback) => {
-    const query = { username: username };
+    const query = { email: email };
     User.findOne(query, callback);
 };
-module.exports.addUser = (newUser, callback) {
+module.exports.addUser = (newUser, callback) => {
     //Need to make sure user does not already exist in table
     let userNotExists = true;
 
