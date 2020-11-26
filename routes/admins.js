@@ -34,11 +34,11 @@ router.post('/auth', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    User.getUserByEmail(email, (err, user) => {
+    Admin.getAdminByEmail(email, (err, user) => {
         if (err) throw err;
         if (!user) return res.json({ success: false, msg: 'User not found' })
 
-        User.comparePassword(password, user.password, (err, isMatch) => {
+        Admin.comparePassword(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
                 const token = jwt.sign({ user }, config.secret, { expiresIn: 60000 });
