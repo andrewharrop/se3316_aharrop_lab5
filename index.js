@@ -16,7 +16,7 @@ const bodyparser = require('body-parser');
 
 //Import routing modules
 const users = require('./routes/users');
-const admin = require('./routes/admin');
+const admin = require('./routes/admins');
 const public = require('./routes/public');
 
 const config = require('./config/database')
@@ -29,7 +29,9 @@ mongoose.connect(config.database, { useUnifiedTopology: true })
 const app = express();
 
 //Routing based on status
-app.use('/users', users);
+app.use('/secure', users);
+app.use('/admin', admin);
+
 //app.use('/admin', admin);
 //app.use('/public', public);
 
