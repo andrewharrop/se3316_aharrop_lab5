@@ -1,6 +1,5 @@
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const JwtStrategy = require('passport-jwt').Strategy;
-const { compare } = require('bcrypt');
 const passport = require('passport');
 const config = require('../config/database');
 const User = require('../models/user');
