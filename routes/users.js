@@ -33,7 +33,7 @@ router.post('/auth', (req, res, next) => {
 
     User.getUserByEmail(email, (err, user) => {
         if (err) throw err;
-        if (!user) return res.json({ success: false, msg: 'User not found' })
+        if (!user) return res.json({ success: false, message: 'User not found' })
 
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) throw err;
@@ -48,9 +48,10 @@ router.post('/auth', (req, res, next) => {
                         username: user.username,
                         email: user.email,
                         flagged: user.isFlagged
-                    }
+                    },
+                    message: "Success"
                 });
-            } else return res.json({ success: false, msg: "Wrong password" });
+            } else return res.json({ success: false, message: "Wrong password" });
         });
 
     });

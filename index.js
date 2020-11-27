@@ -5,7 +5,7 @@
         body-parser
         mongoose
         path
-        
+        cors
 */
 
 const path = require('path')
@@ -13,6 +13,7 @@ const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
+const cors = require('cors')
 
 //Import routing modules
 const users = require('./routes/users');
@@ -27,6 +28,9 @@ mongoose.connect(config.database, { useUnifiedTopology: true })
 
 //Express routing
 const app = express();
+
+//Configure cors
+app.use(cors())
 
 //Routing based on status
 app.use('/secure', users);

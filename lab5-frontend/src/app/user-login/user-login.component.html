@@ -1,0 +1,6 @@
+<p>User login</p>
+
+<a>Email::<input [(ngModel)]="email" type="text"></a>
+<a>Password:<input [(ngModel)]="password" type="password"></a>
+<button (click)="submitLogin()">Submit</button>
+<div [innerHTML]="serverData"></div>
