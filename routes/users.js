@@ -18,8 +18,13 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password, //Password is exposed here
-        isFlagged: req.body.isFlagged
+        isFlagged: false
     });
+    if (req.body.password != req.body.password2) {
+        res.json({ success: false, message: "Passwords do not match" })
+        res.end();
+        return;
+    }
     User.addUser(newUser, (err, user) => {
         if (err) res.json({ success: false, message: "failed to register user" })
             //Some logic must be added here if user is already registered

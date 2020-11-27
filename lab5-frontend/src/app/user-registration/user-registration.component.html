@@ -1,0 +1,8 @@
+<p>User registration</p>
+<a><input type="text" [(ngModel)]="name" placeholder="Name" /></a><br>
+<a><input type="text" [(ngModel)]="username" placeholder="Username" /></a><br>
+<a><input type="text" [(ngModel)]="email" placeholder="Email" /></a><br>
+<a><input type="password" [(ngModel)]="password" placeholder="Password" /></a><br>
+<a><input type="password" [(ngModel)]="password2" placeholder="Enter Password Again" /></a>
+<button (click)="submitRegistarion()">Submit</button>
+<div [innerHTML]="serverData"></div>
