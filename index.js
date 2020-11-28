@@ -37,7 +37,7 @@ app.use(cors())
 //Routing based on status
 app.use('/secure', users);
 app.use('/admin', admin);
-
+app.use('/public', public);
 //app.use('/admin', admin);
 //app.use('/public', public);
 

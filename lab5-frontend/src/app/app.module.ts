@@ -13,6 +13,9 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UnauthenticatedNavComponent } from './unauthenticated-nav/unauthenticated-nav.component';
+import { UnauthenticatedSearchComponent } from './unauthenticated-search/unauthenticated-search.component';
+import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-public/unauthenticated-view-public.component';
 
 
 
@@ -23,7 +26,10 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     UserRegistrationComponent,
     UserDashboardComponent,
     UserLogoutComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UnauthenticatedNavComponent,
+    UnauthenticatedSearchComponent,
+    UnauthenticatedViewPublicComponent
   ],
   imports: [
     BrowserModule,
