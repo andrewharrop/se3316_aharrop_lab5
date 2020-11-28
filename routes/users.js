@@ -4,12 +4,14 @@ const jwt = require('jsonwebtoken');
 const bodyparser = require('body-parser')
 const config = require('../config/database');
 const User = require('../models/user');
+const mongoose = require('mongoose');
 
 const router = express.Router()
 
 router.use(bodyparser.urlencoded({ extended: true }));
 router.use(bodyparser.json());
 
+let regStatus = true;
 
 //Implement routing for authenticated users here
 router.post('/register', (req, res, next) => {
@@ -20,16 +22,23 @@ router.post('/register', (req, res, next) => {
         password: req.body.password, //Password is exposed here
         isFlagged: false
     });
+    //Logic can be added here if the username or email have already been taken
+    //console.log(mongoose.model("User").find({ "username": req.body.username }).count())
+    //mongoose.model("User").findOne()
+
+
+
     if (req.body.password != req.body.password2) {
         res.json({ success: false, message: "Passwords do not match" })
         res.end();
-        return;
+        return; //Make sure passwords match
     }
     User.addUser(newUser, (err, user) => {
         if (err) res.json({ success: false, message: "failed to register user" })
             //Some logic must be added here if user is already registered
         else res.json({ success: true, message: "user registered successfully" })
     })
+
 })
 
 router.post('/auth', (req, res, next) => {
@@ -62,7 +71,10 @@ router.post('/auth', (req, res, next) => {
     });
 });
 
-router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => res.json({ user: req.user }));
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+
+    res.json({ user: req.user })
+});
 
 
 //Create more routes here

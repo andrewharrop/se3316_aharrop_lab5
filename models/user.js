@@ -30,7 +30,12 @@ module.exports.getUserById = (id, callback) => {
 }
 module.exports.getUserByEmail = (email, callback) => {
     const query = { email: email };
-    User.findOne(query, callback);
+    return User.findOne(query, callback);
+};
+module.exports.getUserByUsername = (username, callback) => {
+    const query = { username: username };
+    return User.findOne(query, callback);
+
 };
 module.exports.addUser = (newUser, callback) => {
     //Need to make sure user does not already exist in table

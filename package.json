@@ -25,6 +25,7 @@
         "mongoose": "*",
         "nodemon": "^2.0.6",
         "passport": "^0.4.1",
-        "passport-jwt": "*"
+        "passport-jwt": "^4.0.0",
+        "rxjs": "^6.6.3"
     }
 }

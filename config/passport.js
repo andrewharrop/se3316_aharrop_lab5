@@ -4,8 +4,7 @@ const passport = require('passport');
 const config = require('../config/database');
 const User = require('../models/user');
 
-module.exports = (passport) => {
-
+module.exports = function(passport) {
     //Options for JWTStrategy
     let options = {};
 

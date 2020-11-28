@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { UserAuthServiceService} from '../user-auth-service.service';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-user-login',
@@ -10,7 +13,8 @@ export class UserLoginComponent implements OnInit {
   email:String;
   password:String;
   serverData:any;
-  constructor(private http:HttpClient) { }
+
+  constructor(private http:HttpClient,private authService:UserAuthServiceService,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -24,9 +28,29 @@ onUpdatePassword(event){
 setServer(value){
   this.serverData = value.message;
 }
+serverStatus(value){
+  return value.success
+}
+serverToken(value){
+  return value.token;
+}
+getUser(value){
+  return value.user;
+}
   submitLogin(){
     //Send post request to users-login
-    this.http.post('http://localhost:3000/secure/auth', {email:this.email, password:this.password}).subscribe(data=>{this.setServer(data)})   
+    this.http.post('http://localhost:3000/secure/auth', {email:this.email, password:this.password}).subscribe(data=>{
+      this.setServer(data)
+      if(this.serverStatus(data)){
+        console.log('here')
+        this.authService.storeUserData(this.serverToken(data), this.getUser(data))
+        this.router.navigate(['secure/dashboard'])
+      }else{
+
+      }
+
+
+    })   
 
   }
 }

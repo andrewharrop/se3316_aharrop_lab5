@@ -21,6 +21,7 @@ const admin = require('./routes/admins');
 const public = require('./routes/public');
 
 const config = require('./config/database')
+require('./config/passport')(passport);
 
 //Connect to DB
 mongoose.connect(config.database, { useUnifiedTopology: true })

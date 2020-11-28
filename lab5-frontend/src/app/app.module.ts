@@ -7,12 +7,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     UserLoginComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    UserDashboardComponent,
+    UserLogoutComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
