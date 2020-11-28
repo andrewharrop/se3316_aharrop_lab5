@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms'
 import { HttpClientModule } from "@angular/common/http";
 
+import {UserAuthGuardGuard} from './user-auth-guard.guard'
+import {UserAuthServiceService} from './user-auth-service.service'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user-login/user-login.component';
@@ -28,7 +31,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [UserAuthServiceService,UserAuthGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

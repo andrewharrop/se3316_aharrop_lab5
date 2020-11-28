@@ -17,15 +17,36 @@
     },
     "homepage": "https://github.com/andrewharrop/se3316_aharrop_lab5#readme",
     "dependencies": {
+        "@angular/common": "^11.0.2",
+        "@angular/core": "^11.0.2",
+        "@angular/http": "^7.2.16",
+        "@auth0/angular-jwt": "^5.0.2",
+        "angular2-jwt": "^0.2.3",
         "bcrypt": "*",
         "body-parser": "^1.19.0",
+        "buffer": "^6.0.3",
+        "buffer-equal-constant-time": "^1.0.1",
         "cors": "^2.8.5",
+        "crypto": "^1.0.1",
         "express": "^4.17.1",
         "jsonwebtoken": "*",
+        "jwt-decode": "^3.1.2",
         "mongoose": "*",
         "nodemon": "^2.0.6",
         "passport": "^0.4.1",
         "passport-jwt": "^4.0.0",
-        "rxjs": "^6.6.3"
+        "rxjs": "^6.6.3",
+        "stream": "0.0.2",
+        "util": "^0.12.3"
+    },
+    "browser": {
+        "crypto": false,
+        "util": false,
+        "http": false,
+        "https": false,
+        "net": false,
+        "path": false,
+        "stream": false,
+        "tls": false
     }
 }
