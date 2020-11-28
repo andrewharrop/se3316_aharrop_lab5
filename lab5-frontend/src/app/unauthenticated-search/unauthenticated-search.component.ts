@@ -20,7 +20,8 @@ export class UnauthenticatedSearchComponent implements OnInit {
   }
   submit(){
     this.http.post('http://' + window.location.hostname+':3000/public/unauthsearch', {query:this.searchInput, course:this.courseInput}).subscribe(data=>{
-      this.results=this.getValue(data)
+    if(this.getValue(data))this.results=this.getValue(data)
+    else this.results = "No entry found"
       //console.log(this.results)
     })
   }
