@@ -3,6 +3,7 @@ const bodyparser = require('body-parser')
 const config = require('../config/database');
 //const { query } = require('express');
 const processing = require('../processing/public')
+const Schedule = require('../models/schedules');
 
 const router = express.Router()
 router.use(bodyparser.urlencoded({ extended: true }));
@@ -19,5 +20,10 @@ router.post('/unauthsearch', (req, res, next) => {
     res.json({ value: ret_ })
         //console.log('HERE')
     res.end()
+})
+router.get('/schedules', (req, res) => {
+    Schedule.find({ isPublic: true }).then(data => {
+        res.json(data);
+    })
 })
 module.exports = router

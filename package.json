@@ -31,6 +31,7 @@
         "express": "^4.17.1",
         "jsonwebtoken": "*",
         "jwt-decode": "^3.1.2",
+        "mongodb": "^3.6.3",
         "mongoose": "*",
         "nodemon": "^2.0.6",
         "passport": "^0.4.1",

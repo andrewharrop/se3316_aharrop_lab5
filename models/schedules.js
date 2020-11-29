@@ -1,8 +1,14 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { async } = require('rxjs');
 const config = require('../config/database');
 const pjs = require('../processing/private');
-const { db } = require('./user');
-const User = require('./user')
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
+
+const url = 'mongodb://localhost:27017';
+const dbName = 'lab5web';
+
 const SchedulesSchema = mongoose.Schema({
     scheduleName: {
         type: String,
@@ -27,6 +33,20 @@ const Schedule = module.exports = mongoose.model('schedules', SchedulesSchema);
 
 module.exports.addSchedule = (newSchedule, callback) => {
     newSchedule.save(callback);
+}
+module.exports.enumerateSchedules = () => {
+
+
+    let results;
+
+    // mongoose.model('schedules').find().where({ isPublic: true }).exec((err, docs) => {
+    //     return results
+
+    // })
+    mongoose.model('schedules').find().where({ isPublic: true }).exec((err, docs) => {
+        return "RET"
+
+    })
 }
 
 module.exports.addToSchedule = (name, creator, subjectCode, courseCode) => {

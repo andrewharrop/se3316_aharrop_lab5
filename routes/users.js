@@ -7,6 +7,9 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 const Schedule = require('../models/schedules');
 const router = express.Router()
+const mongo = require('mongodb');
+const assert = require('assert');
+var url = 'mongodb://localhost:27017/lab5web';
 
 router.use(bodyparser.urlencoded({ extended: true }));
 router.use(bodyparser.json());
@@ -117,7 +120,43 @@ router.post('/addtoschedule', (req, res, next) => {
         res.json({ message: 'There was an issue adding the course to the schedule' });
     };
     res.end();
+});
+
+router.get('/publicschdedules', (req, res) => {
+    // var resultArray = [];
+    // mongo.connect(url, function(err, db) {
+    //     assert.strictEqual(null, err);
+    //     var curser = db.collection('schedules').find();
+    //     curser.forEach(function(doc, err) {
+    //             assert.strictEqual(null, err);
+    //             resultArray.push(doc);
+    //         },
+    //         function() {
+    //             res.json({ data: resultArray })
+    //         }
+    //     )
+    // })
+    Schedule.find({ isPublic: true }).then((data) => {
+        res.json(data)
+    })
+
+    //console.log(results)
+    //res.json({ result: results })
+    //res.end()
 })
+
+router.get('myschdedules', (req, res) => {
+    name = req.body.username;
+    Schedule.find({ creator: username }).then((data) => {
+        res.json(data);
+    })
+})
+router.post('/schedulefeedback', (req, res) => {
+    scheduleName = req.body.scdname;
+    creator = req.body.username;
+
+})
+
 
 //Create more routes here
 module.exports = router;
