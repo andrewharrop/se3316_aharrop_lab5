@@ -94,6 +94,20 @@ router.post('/createschedule', (req, res, next) => {
     }
     res.end()
         //console.log(JSON(sessionStorage.getItem('user')).name)
+});
+
+router.post('/addtoschedule', (req, res, next) => {
+    const scheduleName = req.body.name;
+    const subjectCode = req.body.subject;
+    const courseCode = req.body.course;
+    const username = req.body.username;
+    let status = Schedule.addToSchedule(scheduleName, username, subjectCode, courseCode)
+    if (status) {
+        res.json({ message: 'The course has been added to the schedule' });
+    } else {
+        res.json({ message: 'There was an issue adding the course to the schedule' });
+    };
+    res.end();
 })
 
 //Create more routes here

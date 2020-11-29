@@ -17,6 +17,7 @@ import { UnauthenticatedNavComponent } from './unauthenticated-nav/unauthenticat
 import { UnauthenticatedSearchComponent } from './unauthenticated-search/unauthenticated-search.component';
 import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-public/unauthenticated-view-public.component';
 import { UserCreateScheduleComponent } from './user-create-schedule/user-create-schedule.component';
+import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-schedule.component';
 
 
 
@@ -31,7 +32,8 @@ import { UserCreateScheduleComponent } from './user-create-schedule/user-create-
     UnauthenticatedNavComponent,
     UnauthenticatedSearchComponent,
     UnauthenticatedViewPublicComponent,
-    UserCreateScheduleComponent
+    UserCreateScheduleComponent,
+    UserAddToScheduleComponent
   ],
   imports: [
     BrowserModule,

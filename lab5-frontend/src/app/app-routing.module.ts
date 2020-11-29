@@ -9,6 +9,7 @@ import { UnauthenticatedNavComponent } from './unauthenticated-nav/unauthenticat
 import { UnauthenticatedSearchComponent } from './unauthenticated-search/unauthenticated-search.component';
 import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-public/unauthenticated-view-public.component';
 import {UserCreateScheduleComponent} from './user-create-schedule/user-create-schedule.component'
+import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-schedule.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: "secure/dashboard", component: UserDashboardComponent, canActivate:[UserAuthGuardGuard] },
   { path: "search", component: UnauthenticatedSearchComponent},
   { path: 'viewPublic', component:UnauthenticatedViewPublicComponent},
-  { path: 'secure/createschedule', component:UserCreateScheduleComponent, canActivate:[UserAuthGuardGuard]}
+  { path: 'secure/createschedule', component:UserCreateScheduleComponent, canActivate:[UserAuthGuardGuard]},
+  {path: 'secure/addtoschedule', component:UserAddToScheduleComponent, canActivate:[UserAuthGuardGuard]}
 
 
 ];
