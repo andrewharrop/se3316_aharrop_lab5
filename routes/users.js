@@ -81,16 +81,25 @@ router.post('/createschedule', (req, res, next) => {
     let courses = req.body.courses
 
     if (scheduleName && creator) {
-        //Schedule.addSchedule({ scheduleName: scheduleName, creator: creator, courses: courses })
-        //res.send('Schedule created')
-        let schedule = new Schedule({
+        let newSchedule = new Schedule({
             scheduleName: scheduleName,
+            courses: [],
+            feedback: [],
             creator: creator,
-            courses: courses
+            isPublic: true,
         })
-        res.json({ message: 'Schedule created successfully' })
+        Schedule.addSchedule(newSchedule, (err, success) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log('should')
+            }
+        })
+        res.json({ message: "Schedule  was succseeful" })
+
+        //res.json({ message: 'Schedule created successfully' })
     } else {
-        res.json({ message: "Schedule creation was unsuccedful" })
+        res.json({ message: "Schedule  was unsuccedful" })
     }
     res.end()
         //console.log(JSON(sessionStorage.getItem('user')).name)

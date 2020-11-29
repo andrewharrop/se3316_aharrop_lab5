@@ -14,6 +14,13 @@ const SchedulesSchema = mongoose.Schema({
     },
     courses: {
         type: Array
+    },
+    isPublic: {
+        type: Boolean,
+        required: true
+    },
+    feedback: {
+        type: Array
     }
 });
 const Schedule = module.exports = mongoose.model('schedules', SchedulesSchema);
