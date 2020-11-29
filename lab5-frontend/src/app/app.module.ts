@@ -16,6 +16,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UnauthenticatedNavComponent } from './unauthenticated-nav/unauthenticated-nav.component';
 import { UnauthenticatedSearchComponent } from './unauthenticated-search/unauthenticated-search.component';
 import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-public/unauthenticated-view-public.component';
+import { UserCreateScheduleComponent } from './user-create-schedule/user-create-schedule.component';
 
 
 
@@ -29,7 +30,8 @@ import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-publi
     UserProfileComponent,
     UnauthenticatedNavComponent,
     UnauthenticatedSearchComponent,
-    UnauthenticatedViewPublicComponent
+    UnauthenticatedViewPublicComponent,
+    UserCreateScheduleComponent
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@ const bodyparser = require('body-parser')
 const config = require('../config/database');
 const User = require('../models/user');
 const mongoose = require('mongoose');
-
+const Schedule = require('../models/schedules');
 const router = express.Router()
 
 router.use(bodyparser.urlencoded({ extended: true }));
@@ -75,7 +75,26 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
 
     res.json({ user: req.user })
 });
+router.post('/createschedule', (req, res, next) => {
+    const scheduleName = req.body.name;
+    const creator = req.body.creator
+    let courses = req.body.courses
 
+    if (scheduleName && creator) {
+        //Schedule.addSchedule({ scheduleName: scheduleName, creator: creator, courses: courses })
+        //res.send('Schedule created')
+        let schedule = new Schedule({
+            scheduleName: scheduleName,
+            creator: creator,
+            courses: courses
+        })
+        res.json({ message: 'Schedule created successfully' })
+    } else {
+        res.json({ message: "Schedule creation was unsuccedful" })
+    }
+    res.end()
+        //console.log(JSON(sessionStorage.getItem('user')).name)
+})
 
 //Create more routes here
 module.exports = router;

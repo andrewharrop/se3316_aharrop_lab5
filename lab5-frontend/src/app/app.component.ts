@@ -9,7 +9,7 @@ import { UserAuthServiceService} from './user-auth-service.service'
 })
 export class AppComponent {
   title = 'lab5-frontend';
-  
+  //let loggedIn = UserAuthServiceService.loggedIn();
   
   
 }
