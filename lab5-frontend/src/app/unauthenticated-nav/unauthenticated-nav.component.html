@@ -1,6 +1,8 @@
 <nav>
-    <span><a routerLink="/login">Login</a></span>
-    <span><a routerLink="/register"> Register</a></span>
-    <span><a routerLink="/search">Search</a></span>
-    <span><a routerLink="/viewPublic">View public schedules</a></span>
+    <span *ngIf="!auth.loggedIn()"><a routerLink="/login">Login</a></span>
+    <span *ngIf="!auth.loggedIn()"><a  routerLink="/register"> Register</a></span>
+    <span *ngIf="!auth.loggedIn()"><a   routerLink="/search">Search</a></span>
+    <span *ngIf="auth.loggedIn()"><a  routerLink="/secure/dashboard">Dashboard</a></span>
+    <span><a  routerLink="/viewPublic">View public schedules</a></span>
+    <span *ngIf="auth.loggedIn()"><app-user-logout></app-user-logout></span>
 </nav>

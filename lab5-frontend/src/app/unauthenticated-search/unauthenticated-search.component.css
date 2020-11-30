@@ -1,0 +1,31 @@
+.search-container {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+p {
+    padding: 20px;
+}
+
+.search-panel {
+    background-color: wheat;
+    width: fit-content;
+    padding: 15px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+}
+
+.search-panel a {
+    margin-top: 9px;
+}
+
+button {
+    margin-top: 10px;
+}
+
+input {
+    margin-top: 9px;
+}

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms'
 import { HttpClientModule } from "@angular/common/http";
+import { CommonModule } from '@angular/common';  
 
 import {UserAuthGuardGuard} from './user-auth-guard.guard'
 import {UserAuthServiceService} from './user-auth-service.service'
@@ -39,7 +40,7 @@ import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-s
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [UserAuthServiceService,UserAuthGuardGuard],
   bootstrap: [AppComponent]

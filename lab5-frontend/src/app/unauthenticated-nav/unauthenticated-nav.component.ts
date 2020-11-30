@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserAuthServiceService } from '../user-auth-service.service'
+import { CommonModule } from '@angular/common';  
 
 @Component({
   selector: 'app-unauthenticated-nav',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnauthenticatedNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth:UserAuthServiceService) { }
 
   ngOnInit(): void {
   }

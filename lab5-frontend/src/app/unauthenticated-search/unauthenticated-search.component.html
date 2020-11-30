@@ -1,9 +1,11 @@
-<p>unauthenticated-search works!</p>
-<div>
-    <input type="text" [(ngModel)]="searchInput" placeholder="Subject" />
-    <input type="text" [(ngModel)]="courseInput" placeholder="Course" />
+<div class="search-container">
+    <p>Search for courses</p>
+    <div class="search-panel">
+        <input type="text" [(ngModel)]="searchInput" placeholder="Subject" /><br>
+        <input type="text" [(ngModel)]="courseInput" placeholder="Course" /><br>
 
-    <button (click)="submit()">Search</button>
+        <button (click)="submit()">Search</button>
+    </div>
+    <p>Searches can be in the form: <br>Subject: "ECE", "SE", etc...<br>Course Number: "3316", etc... <br>Course Number with Suffux: "3316a", etc...</p>
+    <div [innerHTML]='results'></div>
 </div>
-<p>Searches can be in the form: <br>Subject: "ECE", "SE", etc...<br>Course Number: "3316", etc... <br>Course Number with Suffux: "3316a", etc...</p>
-<div [innerHTML]='results'></div>

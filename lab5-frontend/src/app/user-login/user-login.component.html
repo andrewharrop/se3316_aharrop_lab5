@@ -1,12 +1,15 @@
-<p>User login</p>
-<a>Email::<input [(ngModel)]="email" type="text" (onkeyup)="onUpdateEmail($event)" placeholder="email"></a>
-<a>Password:<input [(ngModel)]="password" (onkeyup)="onUpdatePassword($event)" type="password" placeholder="password"></a>
-<input type="submit" value="Login" (click)="submitLogin()" />
+<div class="login-container">
+    <p>User login</p>
+    <div class="login-panel">
+        <a>Email::<input [(ngModel)]="email" type="text" (onkeyup)="onUpdateEmail($event)" placeholder="email"></a><br>
+        <a>Password:<input [(ngModel)]="password" (onkeyup)="onUpdatePassword($event)" type="password" placeholder="password"></a><br>
+        <input type="submit" value="Login" (click)="submitLogin()" />
+    </div>
 
+    <div [innerHTML]="serverData"></div>
+    <div style="padding-top: 40px;">
 
-<div [innerHTML]="serverData"></div>
-<div style="padding-top: 40px;">
-
-    <a>and@asdf.fdsa</a>
-    <a> qwerqwer</a>
+        <a>and@asdf.fdsa</a>
+        <a> qwerqwer</a>
+    </div>
 </div>

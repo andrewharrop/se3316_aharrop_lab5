@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {UserAuthGuardGuard } from  './user-auth-guard.guard'
 import {Router } from '@angular/router'
 import { UserAuthServiceService} from './user-auth-service.service'
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
