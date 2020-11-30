@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {UserAuthGuardGuard} from './user-auth-guard.guard'
+import {AdminAuthGuard} from './admin-auth.guard'
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
@@ -13,6 +14,7 @@ import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-s
 import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-schedule.component';
 import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-privicy-policy.component';
 import { AdminLoginComponent} from './admin-login/admin-login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component'
 
 const routes: Routes = [
   { path: "login", component: UserLoginComponent },
@@ -27,7 +29,8 @@ const routes: Routes = [
   {path: 'secure/profile', component:UserProfileComponent, canActivate:[UserAuthGuardGuard]},
   {path: 'secure/deleteschedule', component:UserDeleteScheduleComponent, canActivate:[UserAuthGuardGuard]},
   {path: 'privicypolicy', component:PublicPrivicyPolicyComponent},
-  {path: 'admin/login', component:AdminLoginComponent}
+  {path: 'admin/login', component:AdminLoginComponent},
+  {path: 'admin/dashboard', component:AdminDashboardComponent, canActivate:[AdminAuthGuard]}
 
 
 
