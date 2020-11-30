@@ -48,31 +48,42 @@ router.post('/register', (req, res, next) => {
 router.post('/auth', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+    User.find({ email: email }).then(data => {
+        if (data[0].isFlagged == false) {
+            User.getUserByEmail(email, (err, user) => {
+                if (err) throw err;
+                if (!user) return res.json({ success: false, message: 'User not found' })
 
-    User.getUserByEmail(email, (err, user) => {
-        if (err) throw err;
-        if (!user) return res.json({ success: false, message: 'User not found' })
+                User.comparePassword(password, user.password, (err, isMatch) => {
+                    if (err) throw err;
+                    if (isMatch) {
 
-        User.comparePassword(password, user.password, (err, isMatch) => {
-            if (err) throw err;
-            if (isMatch) {
-                const token = jwt.sign({ user }, config.secret, { expiresIn: 60000 });
-                res.json({
-                    success: true,
-                    token: 'jwt ' + token,
-                    user: {
-                        id: user.user_id,
-                        name: user.name,
-                        username: user.username,
-                        email: user.email,
-                        flagged: user.isFlagged
-                    },
-                    message: "Success"
+
+                        const token = jwt.sign({ user }, config.secret, { expiresIn: 60000 });
+                        res.json({
+                            success: true,
+                            token: 'jwt ' + token,
+                            user: {
+                                id: user.user_id,
+                                name: user.name,
+                                username: user.username,
+                                email: user.email,
+                                flagged: user.isFlagged
+                            },
+                            message: "Success"
+                        });
+
+                    } else return res.json({ success: false, message: "Wrong password" });
                 });
-            } else return res.json({ success: false, message: "Wrong password" });
-        });
 
-    });
+            });
+        } else {
+            res.json({ success: false, message: "User account is flagged, please contact an administrator" })
+        }
+    })
+
+
+
 });
 
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {

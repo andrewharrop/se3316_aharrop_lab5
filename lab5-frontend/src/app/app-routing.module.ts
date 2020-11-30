@@ -11,7 +11,7 @@ import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-publi
 import {UserCreateScheduleComponent} from './user-create-schedule/user-create-schedule.component'
 import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-schedule.component';
 import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-schedule.component';
-
+import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-privicy-policy.component'
 
 const routes: Routes = [
   { path: "login", component: UserLoginComponent },
@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'secure/createschedule', component:UserCreateScheduleComponent, canActivate:[UserAuthGuardGuard]},
   {path: 'secure/addtoschedule', component:UserAddToScheduleComponent, canActivate:[UserAuthGuardGuard]},
   {path: 'secure/profile', component:UserProfileComponent, canActivate:[UserAuthGuardGuard]},
-  {path: 'secure/deleteschedule', component:UserDeleteScheduleComponent, canActivate:[UserAuthGuardGuard]}
+  {path: 'secure/deleteschedule', component:UserDeleteScheduleComponent, canActivate:[UserAuthGuardGuard]},
+  {path: 'privicypolicy', component:PublicPrivicyPolicyComponent}
 
 
 
