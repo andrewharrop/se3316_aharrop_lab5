@@ -1,3 +1,9 @@
-<input placeholder="schedule name" [(ngModel)]="name" type="text" />
-<button (click)="onSClick()">C</button>
-<div [innerHTML]='serverStatus'></div>
+<div class="create-panel">
+    <input class="create-input" placeholder="schedule name" [(ngModel)]="name" type="text" /><br>
+    <button (click)="onSClick()">Create</button>
+    <div *ngIf="serverStatus">
+        <div class="result" [innerHTML]='serverStatus'></div>
+
+    </div>
+
+</div>

@@ -1,11 +1,19 @@
 <p>unauthenticated-view-public works!</p>
-<div *ngIf="finished">
-    <div *ngFor="let schedule of schedules.message; index as i">
-        <div class="schedule">
-            <div [innerHTML]=" schedules.message[i].creator "></div>
-            <div [innerHTML]=" schedules.message[i].scheduleName "></div>
-            <div [innerHTML]=" schedules.message[i].feedback "></div>
-            <div [innerHTML]=" schedules.message[i].courses "></div>
+<div *ngIf="serverData">
+    <!--<p>{{serverData.message}}</p>-->
+    <div *ngFor="let schedule of serverData.message">
+
+        <div class="schedule-panel">
+            Creator:
+            <a [innerHTML]="schedule.creator"></a><br> Schedule name:
+            <a [innerHTML]="schedule.scheduleName"></a>
+            <div *ngFor="let course of schedule.courses">
+                <a [innerHTML]="course.subject"></a>
+                <a>_</a>
+                <a [innerHTML]="course.course"></a>
+
+            </div>
+
         </div>
 
     </div>

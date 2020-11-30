@@ -9,6 +9,7 @@ const Schedule = require('../models/schedules');
 const router = express.Router()
 const mongo = require('mongodb');
 const assert = require('assert');
+const e = require('express');
 var url = 'mongodb://localhost:27017/lab5web';
 
 router.use(bodyparser.urlencoded({ extended: true }));
@@ -78,10 +79,20 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
 
     res.json({ user: req.user })
 });
+router.post('/deleteschedule', /*passport.authenticate('jwt', { session: false }),*/ (req, res, next) => {
+    name = req.body.name;
+    user = req.body.username
+    console.log(user, name)
+    Schedule.findOneAndDelete({ scheduleName: name, creator: user }, (err) => {
+            if (err) res.json({ status: true });
+            else res.json({ status: true })
+            res.end()
+        }) //where({scheduleName:name, creator:user})
+})
 router.post('/createschedule', (req, res, next) => {
     const scheduleName = req.body.name;
     const creator = req.body.creator
-    let courses = req.body.courses
+        //let courses = req.body.courses
 
     if (scheduleName && creator) {
         let newSchedule = new Schedule({
