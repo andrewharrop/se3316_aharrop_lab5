@@ -22,8 +22,10 @@ router.post('/unauthsearch', (req, res, next) => {
     res.end()
 })
 router.get('/schedules', (req, res) => {
+
     Schedule.find({ isPublic: true }).then(data => {
-        res.json(data);
+
+        res.json({ message: data });
     })
 })
 module.exports = router
