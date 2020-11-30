@@ -28,4 +28,5 @@ router.get('/schedules', (req, res) => {
         res.json({ message: data });
     })
 })
+
 module.exports = router

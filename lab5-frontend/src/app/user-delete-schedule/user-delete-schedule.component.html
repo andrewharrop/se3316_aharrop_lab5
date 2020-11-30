@@ -1,2 +1,7 @@
-<input [(ngModel)]="name" placeholder="Enter Schedule Name" />
-<button (click)="submit()">Delete</button>
+<div class="delete-panel">
+    <input class="delete-input" [(ngModel)]="name" placeholder="Enter Schedule Name" /><br>
+    <button (click)="submit()">Delete</button>
+</div>
+<div *ngIf="result">
+    <div class="result" [innerHTML]='message'></div>
+</div>

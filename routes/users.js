@@ -84,8 +84,8 @@ router.post('/deleteschedule', /*passport.authenticate('jwt', { session: false }
     user = req.body.username
     console.log(user, name)
     Schedule.findOneAndDelete({ scheduleName: name, creator: user }, (err) => {
-            if (err) res.json({ status: true });
-            else res.json({ status: true })
+            if (err) res.json({ status: true, message: "Error deleting schedule" });
+            else res.json({ status: true, message: "If a schedule exists under that name, it was deleted" })
             res.end()
         }) //where({scheduleName:name, creator:user})
 })

@@ -20,6 +20,7 @@ import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-publi
 import { UserCreateScheduleComponent } from './user-create-schedule/user-create-schedule.component';
 import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-schedule.component';
 import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-schedule.component';
+import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-privicy-policy.component';
 
 
 
@@ -36,7 +37,8 @@ import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-
     UnauthenticatedViewPublicComponent,
     UserCreateScheduleComponent,
     UserAddToScheduleComponent,
-    UserDeleteScheduleComponent
+    UserDeleteScheduleComponent,
+    PublicPrivicyPolicyComponent
   ],
   imports: [
     BrowserModule,

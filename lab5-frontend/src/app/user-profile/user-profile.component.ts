@@ -9,12 +9,15 @@ import {Router} from '@angular/router';
 export class UserProfileComponent implements OnInit {
 
   constructor(private authService:UserAuthServiceService, private router:Router) { }
-  user:Object;
   
-  getProfile(value){
-    return value.user
+  username:String = JSON.parse(localStorage.getItem('user')).username;
+  name:String = JSON.parse(localStorage.getItem('user')).name;
+  email:String = JSON.parse(localStorage.getItem('user')).email
+  password:String;
+
+  updatePassword(){
+    
   }
-  
   ngOnInit(){
     
   }
