@@ -33,11 +33,11 @@ router.post('/auth', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    Admin.getAdminByEmail(email, (err, user) => {
+    Admin.getAdminByEmail(email, (err, admin) => {
         if (err) throw err;
         if (!admin) return res.json({ success: false, msg: 'User not found' })
 
-        Admin.comparePassword(password, user.password, (err, isMatch) => {
+        Admin.comparePassword(password, admin.password, (err, isMatch) => {
             if (err) throw err;
             if (isMatch) {
                 const token = jwt.sign({ admin }, config.secret, { expiresIn: 60000 });
@@ -45,12 +45,13 @@ router.post('/auth', (req, res, next) => {
                     success: true,
                     token: 'jwt ' + token,
                     admin: {
-                        id: user.user_id,
+                        id: admin.user_id,
 
-                        username: user.username,
-                        email: user.email,
+                        username: admin.username,
+                        email: admin.email,
 
-                    }
+                    },
+                    msg: "Success"
                 });
             } else return res.json({ success: false, msg: "Wrong password" });
         });

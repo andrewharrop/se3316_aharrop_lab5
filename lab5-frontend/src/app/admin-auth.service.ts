@@ -7,17 +7,17 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class AdminAuthService {
   authToken: any;
-  user:any;
+  admin:any;
   helper = new JwtHelperService()
 
   constructor(private http:HttpClient) { }
 
 
-  storeUserData(token, user){
+  storeUserData(token, admin){
     localStorage.setItem('id_token',token);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('admin', JSON.stringify(admin));
     this.authToken = token;
-    this.user=user
+    this.admin=admin
   }
   loadToken(){
     const token = localStorage.getItem('id_token');
@@ -25,11 +25,11 @@ export class AdminAuthService {
   }
   logout(){
     this.authToken = null;
-    this.user = null;
+    this.admin = null;
     localStorage.clear() 
    }
    loggedIn(){
-    if((localStorage.getItem('id_token'))!=null){
+    if((localStorage.getItem('admin') && localStorage.getItem('id_token'))!=null){
       try{
         //if(this.a(jwt_decode(localStorage.getItem('id_token')))==this.b(this.user) && this.c(jwt_decode(localStorage.getItem('id_token')))==this.d(this.user)) return true;
 
