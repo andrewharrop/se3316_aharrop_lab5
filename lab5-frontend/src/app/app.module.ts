@@ -21,6 +21,8 @@ import { UserCreateScheduleComponent } from './user-create-schedule/user-create-
 import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-schedule.component';
 import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-schedule.component';
 import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-privicy-policy.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 
@@ -38,7 +40,9 @@ import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-pri
     UserCreateScheduleComponent,
     UserAddToScheduleComponent,
     UserDeleteScheduleComponent,
-    PublicPrivicyPolicyComponent
+    PublicPrivicyPolicyComponent,
+    AdminLoginComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

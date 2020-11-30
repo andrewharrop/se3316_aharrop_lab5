@@ -1,0 +1,14 @@
+<div class="login-container">
+    <p>Admin login</p>
+    <div class="login-panel">
+        <a>Email::<input [(ngModel)]="email" type="text"  placeholder="email"></a><br>
+        <a>Password:<input [(ngModel)]="password"  type="password" placeholder="password"></a><br>
+        <input type="submit" value="Login" (click)="submitLogin()" />
+    </div>
+
+    <div [innerHTML]="serverData"></div>
+    <div style="padding-top: 40px;">
+
+
+    </div>
+</div>
