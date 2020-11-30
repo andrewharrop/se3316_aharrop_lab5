@@ -4,5 +4,11 @@
     <span *ngIf="!auth.loggedIn()"><a   routerLink="/search">Search</a></span>
     <span *ngIf="auth.loggedIn()"><a  routerLink="/secure/dashboard">Dashboard</a></span>
     <span><a  routerLink="/viewPublic">View public schedules</a></span>
+    <span *ngIf="auth.loggedIn()"><a routerLink="/secure/createschedule">Create Schedule</a></span>
+    <span *ngIf="auth.loggedIn()"><a routerLink="/secure/addtoschedule">Add to schedule</a></span>
+    <span *ngIf="auth.loggedIn()"><a routerLink="/secure/deleteschedule">Delete a Schedule</a></span>
+
     <span *ngIf="auth.loggedIn()"><app-user-logout></app-user-logout></span>
+    <span *ngIf="auth.loggedIn()"><a routerLink="/secure/profile">Profile</a></span>
+
 </nav>

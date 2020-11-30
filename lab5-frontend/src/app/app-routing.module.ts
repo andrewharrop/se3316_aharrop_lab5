@@ -10,6 +10,7 @@ import { UnauthenticatedSearchComponent } from './unauthenticated-search/unauthe
 import { UnauthenticatedViewPublicComponent } from './unauthenticated-view-public/unauthenticated-view-public.component';
 import {UserCreateScheduleComponent} from './user-create-schedule/user-create-schedule.component'
 import { UserAddToScheduleComponent } from './user-add-to-schedule/user-add-to-schedule.component';
+import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-schedule.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,10 @@ const routes: Routes = [
   { path: "search", component: UnauthenticatedSearchComponent},
   { path: 'viewPublic', component:UnauthenticatedViewPublicComponent},
   { path: 'secure/createschedule', component:UserCreateScheduleComponent, canActivate:[UserAuthGuardGuard]},
-  {path: 'secure/addtoschedule', component:UserAddToScheduleComponent, canActivate:[UserAuthGuardGuard]}
+  {path: 'secure/addtoschedule', component:UserAddToScheduleComponent, canActivate:[UserAuthGuardGuard]},
+  {path: 'secure/profile', component:UserProfileComponent, canActivate:[UserAuthGuardGuard]},
+  {path: 'secure/deleteschedule', component:UserDeleteScheduleComponent, canActivate:[UserAuthGuardGuard]}
+
 
 
 ];
