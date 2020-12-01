@@ -2,9 +2,25 @@
     <div class="search-panel">
         <input type="text" [(ngModel)]="searchInput" placeholder="Subject" /><br>
         <input type="text" [(ngModel)]="courseInput" placeholder="Course" /><br>
-
         <button (click)="submit()">Search</button>
     </div>
     <p>Searches can be in the form: <br>Subject: "ECE", "SE", etc...<br>Course Number: "3316", etc... <br>Course Number with Suffux: "3316a", etc...</p>
-    <div [innerHTML]='results'></div>
+
+    <div [innerHTML]='resultsStatus'></div>
+    <div class="expand-container" *ngIf="got">
+        <div>
+            <div *ngIf="!expandStatus; else elseBlock">
+                <div *ngFor="let item of visibleResultsArr1">
+                    <div class="entry">{{item[0]}} : {{item[1]}}</div>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div *ngFor="let item of visibleResultsArr2">
+                    <hr>
+                    <div class="entry">{{item[0]}} : {{item[1]}}</div>
+                </div>
+            </ng-template>
+        </div>
+        <button class="expand-button" (click)="expand()">{{inButton}}</button>
+    </div>
 </div>

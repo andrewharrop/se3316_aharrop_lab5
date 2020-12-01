@@ -16,6 +16,7 @@ p {
     margin-left: auto;
     margin-right: auto;
     border-radius: 4px;
+    margin-top: 10px;
 }
 
 .search-panel a {
@@ -29,3 +30,20 @@ button {
 input {
     margin-top: 9px;
 }
+
+.expand-container {
+    background-color: wheat;
+    width: 30em;
+    padding: 8px;
+    text-align: left;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.expand-button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.entry {}

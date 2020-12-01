@@ -14,9 +14,9 @@ router.post('/unauthsearch', (req, res, next) => {
     const course = req.body.course
         //console.log(query)
     let ret_ = processing.unauthSearch(query, course)
-    if (typeof(ret_) == Object) {
+        //if (typeof(ret_) == Object) {}
         //console.log(ret_)
-    }
+
     res.json({ value: ret_ })
         //console.log('HERE')
     res.end()

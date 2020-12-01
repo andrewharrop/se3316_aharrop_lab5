@@ -38,9 +38,7 @@ module.exports.unauthSearch = (query, course) => {
             if (course == (timetableData[x]['catalog_nbr']).toString().toUpperCase()) {
                 if (timetableData[x].subject == query.toUpperCase()) {
 
-                    res = [timetableData[x]['subject'], timetableData[x]['catalog_nbr'], timetableData[x]['className'],
-                        timetableData[x]['course_info'][0]['class_section'], timetableData[x]['course_info'][0]['ssr_component']
-                    ]
+                    res = [timetableData[x]]
                     return res
                 }
 

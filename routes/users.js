@@ -11,6 +11,11 @@ const mongo = require('mongodb');
 const assert = require('assert');
 const e = require('express');
 const user = require('../models/user');
+const nev = require('email-verification')(mongoose);
+
+// nev.configure({
+
+// })
 FacebookStrategy = require('passport-facebook').Strategy;
 
 passport.use(new FacebookStrategy({
