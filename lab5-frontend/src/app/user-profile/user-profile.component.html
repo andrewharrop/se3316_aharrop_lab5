@@ -1,4 +1,10 @@
-<p>Username: {{username}}</p>
-<p>Name: {{name}}</p>
-<p>Email: {{email}}</p>
-<input placeholder="change password" [(ngModel)]="password" /><button (click)="updatePassword">Change</button>
+<div class="profile-panel">
+    <p>Username: {{username}}</p>
+    <p>Name: {{name}}</p>
+    <p>Email: {{email}}</p>
+    <input type="password" class="submit-change" placeholder="change password" [(ngModel)]="password" /><button class="submit-change" (click)="updatePassword()">Change</button>
+</div>
+
+<div *ngIf="hasBeenUpdated">
+    <div [innerHTML]="response"></div>
+</div>

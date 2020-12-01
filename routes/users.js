@@ -110,6 +110,22 @@ router.post('/register', (req, res, next) => {
 
 
 })
+
+router.post('/updatepassword', (req, res, next) => {
+    //username, email for verification
+    let email = req.body.email; //both candidate keys
+    let username = req.body.username
+    let newPassword = req.body.password;
+    if (newPassword.length > 5) {
+        User.changePassword(username, email, newPassword);
+        res.json({ status: true, message: 'Password updated' })
+        res.end()
+    } else {
+        res.json({ status: false, message: 'Password not updated' })
+        res.end()
+    }
+
+})
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }))
 router.get('/auth/facebook/callback',
     passport.authenticate('facebook', {

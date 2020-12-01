@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const config = require('../config/database')
+const config = require('../config/database');
+const passport = require('passport');
 const UserSchema = mongoose.Schema({
     name: {
         type: String
@@ -52,7 +53,22 @@ module.exports.addUser = (newUser, callback) => {
         //User already exists logic
     };
 };
+module.exports.changePassword = (username, email, password) => {
+    User.find({ username: username, email: email }).then(data => {
+        if (data.length > 0) {
+            let hashed; //same as normal hashing
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, (err, hash) => {
+                    hashed = hash
+                    User.update({ username: username, email: email }, { $set: { password: hashed } }).then((data) => {
+                        console.log(`Password update for ${username}`)
+                    })
 
+                });
+            });
+        }
+    })
+}
 module.exports.comparePassword = (candidatePassword, hash, callback) => {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
         if (err) throw err;
