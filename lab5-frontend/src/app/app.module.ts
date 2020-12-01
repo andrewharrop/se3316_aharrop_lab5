@@ -23,6 +23,7 @@ import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-
 import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-privicy-policy.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminFlagUserComponent } from './admin-flag-user/admin-flag-user.component';
 
 
 
@@ -42,7 +43,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     UserDeleteScheduleComponent,
     PublicPrivicyPolicyComponent,
     AdminLoginComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminFlagUserComponent
   ],
   imports: [
     BrowserModule,

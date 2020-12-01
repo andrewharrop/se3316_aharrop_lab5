@@ -59,7 +59,7 @@ export class UserAuthServiceService {
     return data.email
   }
   loggedIn(){
-    if((localStorage.getItem('id_token'))!=null){
+    if((localStorage.getItem('user') && localStorage.getItem('id_token'))!=null){
       try{
         //if(this.a(jwt_decode(localStorage.getItem('id_token')))==this.b(this.user) && this.c(jwt_decode(localStorage.getItem('id_token')))==this.d(this.user)) return true;
 

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UnauthenticatedNavComponent } from './unauthenticated-nav.component';
+import { AdminFlagUserComponent } from './admin-flag-user.component';
 
-describe('UnauthenticatedNavComponent', () => {
-  let component: UnauthenticatedNavComponent;
-  let fixture: ComponentFixture<UnauthenticatedNavComponent>;
+describe('AdminFlagUserComponent', () => {
+  let component: AdminFlagUserComponent;
+  let fixture: ComponentFixture<AdminFlagUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnauthenticatedNavComponent ]
+      declarations: [ AdminFlagUserComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UnauthenticatedNavComponent);
+    fixture = TestBed.createComponent(AdminFlagUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -26,3 +26,11 @@ p {
 input {
     margin-top: 9px;
 }
+
+.facebook-login-panel {
+    margin-top: 10px;
+}
+
+.facebook-login-text {
+    text-align: left;
+}

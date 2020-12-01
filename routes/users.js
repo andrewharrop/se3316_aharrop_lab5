@@ -10,6 +10,24 @@ const router = express.Router()
 const mongo = require('mongodb');
 const assert = require('assert');
 const e = require('express');
+const user = require('../models/user');
+FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new FacebookStrategy({
+        clientID: 219387623136934,
+        clientSecret: 'be4f994d1e25be7ae2d5e34bb31f5283',
+        callbackURL: "/"
+    },
+    function(accessToken, refreshToken, profile, done) {
+
+        console.log(profile)
+        return done(null, profile);
+        // });
+    }));
+
+
+//app id: 219387623136934
+//app secret: be4f994d1e25be7ae2d5e34bb31f5283
 var url = 'mongodb://localhost:27017/lab5web';
 
 router.use(bodyparser.urlencoded({ extended: true }));
@@ -17,34 +35,82 @@ router.use(bodyparser.json());
 
 let regStatus = true;
 
+
 //Implement routing for authenticated users here
 router.post('/register', (req, res, next) => {
-    let newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password, //Password is exposed here
-        isFlagged: false
-    });
+    name = req.body.name;
+    email = req.body.email;
+    username = req.body.username;
+    password = req.body.password;
+    password2 = req.body.password2
+        //if ussser already exists: here
+    let sdata;
+    User.find({ $or: [{ username: username }, { email: email }] }).then((data) => {
+
+        if (data.length == 0) {
+            if (name && email && username && password) {
+                const re = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+                if (re.test(email)) {
+                    if (password == password2) {
+                        if (password.length > 5) {
+                            let newUser = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                username: req.body.username,
+                                password: req.body.password, //Password is exposed here
+                                isFlagged: false
+                            });
+                            User.addUser(newUser, (err, user) => {
+                                if (err) res.json({ success: false, message: "failed to register user" })
+                                    //Some logic must be added here if user is already registered
+                                else res.json({ success: true, message: "user registered successfully" })
+                            });
+                        } else {
+                            res.json({ success: false, message: "please enter a password that is at least 6 charachters" });
+                            res.end();
+                        }
+                    } else {
+                        res.json({ success: false, message: "please enter passwords that match" });
+                        res.end();
+                    }
+
+                } else {
+                    res.json({ success: false, message: "please enter a valid email" });
+                    res.end();
+                }
+            } else {
+                res.json({ success: false, message: "please fill out all fields" });
+                res.end();
+            }
+        } else {
+            res.json({ success: false, message: "That email or username is already registered!" })
+        }
+    })
+
+
+    // let newUser = new User({
+    //     name: req.body.name,
+    //     email: req.body.email,
+    //     username: req.body.username,
+    //     password: req.body.password, //Password is exposed here
+    //     isFlagged: false
+    // });
     //Logic can be added here if the username or email have already been taken
     //console.log(mongoose.model("User").find({ "username": req.body.username }).count())
     //mongoose.model("User").findOne()
 
 
 
-    if (req.body.password != req.body.password2) {
-        res.json({ success: false, message: "Passwords do not match" })
-        res.end();
-        return; //Make sure passwords match
-    }
-    User.addUser(newUser, (err, user) => {
-        if (err) res.json({ success: false, message: "failed to register user" })
-            //Some logic must be added here if user is already registered
-        else res.json({ success: true, message: "user registered successfully" })
-    })
+
+
 
 })
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }))
+router.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
 
+        scope: ['email']
+    }));
 router.post('/auth', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;

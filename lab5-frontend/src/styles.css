@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
-    background-color: #b19cd9;
+    /* background-color: #b19cd9; */
+    background-image: url('../../trianglify-lowres.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
