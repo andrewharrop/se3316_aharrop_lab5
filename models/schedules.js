@@ -27,12 +27,34 @@ const SchedulesSchema = mongoose.Schema({
     },
     feedback: {
         type: Array
+    },
+    created: {
+        type: String,
+        required: true
+    },
+    modified: {
+        type: String
+
     }
 });
 const Schedule = module.exports = mongoose.model('schedules', SchedulesSchema);
 
-module.exports.addSchedule = (newSchedule, callback) => {
-    newSchedule.save(callback);
+module.exports.addSchedule = (newSchedule, name, creator, callback) => {
+    //add limit to creations here
+    let created = false;
+    Schedule.find({ scheduleName: name, creator: creator }).then((data) => {
+        if (data.length == 0) {
+            newSchedule.save(callback);
+            created = true;
+        } else {
+            created = false;
+        }
+
+    }).then(() => {
+        //return created;
+
+    })
+
 }
 module.exports.enumerateSchedules = () => {
 
@@ -49,11 +71,11 @@ module.exports.enumerateSchedules = () => {
     })
 }
 
-module.exports.addToSchedule = (name, creator, subjectCode, courseCode) => {
+module.exports.addToSchedule = (name, creator, subjectCode, courseCode, modified) => {
     if (name && creator && subjectCode && courseCode) {
         if (pjs.courseExists(subjectCode, courseCode)) {
             //True logic
-            Schedule.updateOne({ "scheduleName": name, "creator": creator }, { $addToSet: { 'courses': { subject: subjectCode, course: courseCode } } }, (err, success) => {
+            Schedule.updateOne({ "scheduleName": name, "creator": creator }, { $addToSet: { 'courses': { subject: subjectCode, course: courseCode, modified: modified } } }, (err, success) => {
                 if (err) {
                     return false
                 } else {

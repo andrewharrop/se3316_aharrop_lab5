@@ -26,6 +26,7 @@ export class UnauthenticatedViewPublicComponent implements OnInit {
        this.setServers(
          data
          )
+         console.log(data)
 
      })
 

@@ -174,8 +174,11 @@ router.post('/deleteschedule', /*passport.authenticate('jwt', { session: false }
 router.post('/createschedule', (req, res, next) => {
     const scheduleName = req.body.name;
     const creator = req.body.creator
-        //let courses = req.body.courses
+    let date = new Date();
+    let created = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString()
 
+    //let courses = req.body.courses
+    //Add creatopn data
     if (scheduleName && creator) {
         let newSchedule = new Schedule({
             scheduleName: scheduleName,
@@ -183,22 +186,31 @@ router.post('/createschedule', (req, res, next) => {
             feedback: [],
             creator: creator,
             isPublic: true,
+            created: created,
+            modified: created
         })
-        Schedule.addSchedule(newSchedule, (err, success) => {
-            if (err) {
-                console.log(err)
+        Schedule.find({ scheduleName: scheduleName, creator: creator }).then((data) => {
+            if (data.length == 0) {
+                (Schedule.addSchedule(newSchedule, scheduleName, creator, (err, success) => { if (err) { console.log(err) } }))
+                res.json({ message: 'Schedule created successfully' })
+                res.end()
+
             } else {
-                console.log('should')
+                res.json({ message: "Schedule was unsuccedful, you already have one named that" })
+                res.end()
+
             }
         })
-        res.json({ message: "Schedule  was succseeful" })
 
-        //res.json({ message: 'Schedule created successfully' })
+
+
+
+
     } else {
-        res.json({ message: "Schedule  was unsuccedful" })
+        res.json({ message: "Schedule was unsuccedful, it needs a name" })
+
     }
-    res.end()
-        //console.log(JSON(sessionStorage.getItem('user')).name)
+    //console.log(JSON(sessionStorage.getItem('user')).name)
 });
 
 router.post('/addtoschedule', (req, res, next) => {
@@ -206,7 +218,12 @@ router.post('/addtoschedule', (req, res, next) => {
     const subjectCode = req.body.subject;
     const courseCode = req.body.course;
     const username = req.body.username;
-    let status = Schedule.addToSchedule(scheduleName, username, subjectCode, courseCode)
+
+    //*Add modification data
+    let date = new Date();
+    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString()
+
+    let status = Schedule.addToSchedule(scheduleName, username, subjectCode, courseCode, modified)
     if (status) {
         res.json({ message: 'The course has been added to the schedule' });
     } else {
