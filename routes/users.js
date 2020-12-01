@@ -163,9 +163,10 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
 });
 router.post('/deleteschedule', /*passport.authenticate('jwt', { session: false }),*/ (req, res, next) => {
     name = req.body.name;
-    user = req.body.username
-    console.log(user, name)
-    Schedule.findOneAndDelete({ scheduleName: name, creator: user }, (err) => {
+    let user2 = req.body.username
+    description = req.body.description
+        //console.log(user, name)
+    Schedule.findOneAndDelete({ scheduleName: name, creator: user2 }, (err) => {
             if (err) res.json({ status: true, message: "Error deleting schedule" });
             else res.json({ status: true, message: "If a schedule exists under that name, it was deleted" })
             res.end()
@@ -174,6 +175,7 @@ router.post('/deleteschedule', /*passport.authenticate('jwt', { session: false }
 router.post('/createschedule', (req, res, next) => {
     const scheduleName = req.body.name;
     const creator = req.body.creator
+    const description = req.body.description
     let date = new Date();
     let created = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString()
 
@@ -185,15 +187,25 @@ router.post('/createschedule', (req, res, next) => {
             courses: [],
             feedback: [],
             creator: creator,
-            isPublic: true,
+            isPublic: false,
             created: created,
-            modified: created
+            modified: created,
+            description: description
+
         })
         Schedule.find({ scheduleName: scheduleName, creator: creator }).then((data) => {
             if (data.length == 0) {
-                (Schedule.addSchedule(newSchedule, scheduleName, creator, (err, success) => { if (err) { console.log(err) } }))
-                res.json({ message: 'Schedule created successfully' })
-                res.end()
+                Schedule.find({ creator: creator }).then(data2 => {
+                    if (data2.length < 21) {
+                        (Schedule.addSchedule(newSchedule, scheduleName, creator, (err, success) => { if (err) { console.log(err) } }))
+                        res.json({ message: 'Schedule created successfully' })
+                        res.end()
+                    } else {
+                        res.json({ message: 'You already have too many schedules' })
+                        res.end()
+                    }
+                })
+
 
             } else {
                 res.json({ message: "Schedule was unsuccedful, you already have one named that" })
@@ -212,7 +224,19 @@ router.post('/createschedule', (req, res, next) => {
     }
     //console.log(JSON(sessionStorage.getItem('user')).name)
 });
-
+router.post('/deletecourse', (req, res, next) => {
+    let creator = req.body.creator;
+    let course = req.body.course;
+    let subject = req.body.course;
+    let scname = req.body.name;
+    let date = new Date();
+    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString()
+    Schedule.deleteCourse(scname, subject, course, creator, modified);
+})
+router.post('/changeschedulename', (req, res) => {
+    const creator = req.body.creator;
+    const name = req.body.name;
+})
 router.post('/addtoschedule', (req, res, next) => {
     const scheduleName = req.body.name;
     const subjectCode = req.body.subject;
@@ -220,8 +244,6 @@ router.post('/addtoschedule', (req, res, next) => {
     const username = req.body.username;
 
     //*Add modification data
-    let date = new Date();
-    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString()
 
     let status = Schedule.addToSchedule(scheduleName, username, subjectCode, courseCode, modified)
     if (status) {
@@ -231,7 +253,18 @@ router.post('/addtoschedule', (req, res, next) => {
     };
     res.end();
 });
+router.post('/updatescheduledescription', (req, res, next) => {
+    const scheduleName = req.body.name;
+    const creator = req.body.creator;
+    const description = req.body.description;
+    let date = new Date();
+    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString();
+    console.log(scheduleName, creator, description, modified)
+    Schedule.updateDescription(scheduleName, creator, description, modified)
+    res.json({ message: "Updated" })
+    res.end()
 
+})
 router.get('/publicschdedules', (req, res) => {
     // var resultArray = [];
     // mongo.connect(url, function(err, db) {

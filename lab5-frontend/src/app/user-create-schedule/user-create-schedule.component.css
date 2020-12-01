@@ -12,6 +12,12 @@
     margin: 10px;
 }
 
+.desc-input {
+    border-radius: 3px;
+    font-size: large;
+    margin: 10px;
+}
+
 .result {
     background-color: wheat;
     font-size: large;

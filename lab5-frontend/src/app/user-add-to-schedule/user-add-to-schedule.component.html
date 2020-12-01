@@ -1,10 +1,24 @@
 <div class="add-panel">
-    <input class="add-input" type="text" [(ngModel)]="sname" placeholder="schedule name" /><br>
-    <input class="add-input" type="text" [(ngModel)]="scode" placeholder="subject code" /><br>
-    <input class="add-input" type="text" [(ngModel)]="ccode" placeholder="course code" /><br>
-    <button (click)="submit()">Add</button>
-</div>
+    <button class="switching-button" (click)="switchView()">{{whatAmINotDoingRightNow}}</button>
 
-<div *ngIf="serverData">
-    <div class="result" [innerHTML]='serverData'></div>
 </div>
+<div *ngIf="!edit; else elseBlock">
+    <div class="add-panel">
+        <input class="add-input" type="text" [(ngModel)]="sname" placeholder="schedule name" /><br>
+        <input class="add-input" type="text" [(ngModel)]="scode" placeholder="subject code" /><br>
+        <input class="add-input" type="text" [(ngModel)]="ccode" placeholder="course code" /><br>
+        <button (click)="submit()">Add</button>
+    </div>
+
+    <div *ngIf="serverData">
+        <div class="result" [innerHTML]='serverData'></div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <div class="add-panel">
+        <input class="add-input" placeholder="schedule name" type="text" [(ngModel)]='scheduleName'><br>
+        <textarea class="big-area" [(ngModel)]="newDescription" placeholder="schedule Description" cols="35" rows="8"></textarea><br>
+        <button class="button2" (click)="saveDescription()">Change Description</button>
+    </div>
+
+</ng-template>

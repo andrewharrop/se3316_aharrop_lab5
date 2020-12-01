@@ -10,6 +10,7 @@ export class UserCreateScheduleComponent implements OnInit {
   name:String;
   username:String;
   courses:any;
+  description:String
   serverStatus:any;
   constructor(private http:HttpClient) { }
 
@@ -21,7 +22,7 @@ export class UserCreateScheduleComponent implements OnInit {
   onSClick(){
     this.username=(JSON.parse(localStorage.getItem('user')).username)
     this.courses=[];
-    this.http.post('http://'+ window.location.hostname  +':3000/secure/createschedule', {name:this.name, creator:this.username, courses:this.courses}).subscribe(data=>{
+    this.http.post('http://'+ window.location.hostname  +':3000/secure/createschedule', {name:this.name, description:this.description,creator:this.username, courses:this.courses}).subscribe(data=>{
       this.serverStatus = this.getMessage(data);
     })
 

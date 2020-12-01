@@ -34,7 +34,9 @@ const SchedulesSchema = mongoose.Schema({
     },
     modified: {
         type: String
-
+    },
+    description: {
+        type: String
     }
 });
 const Schedule = module.exports = mongoose.model('schedules', SchedulesSchema);
@@ -54,8 +56,21 @@ module.exports.addSchedule = (newSchedule, name, creator, callback) => {
         //return created;
 
     })
-
 }
+module.exports.deleteCourse = (scheduleName, subject, course, creator, modified) => {
+    //add modified data
+    Schedule.update({ creator: creator, scheduleName: scheduleName }, { $pull: { courses: { subject: subject, course: course } } }, { $set: { modified: modified } })
+}
+module.exports.changeName = (creator, name) => {
+    Schedule.update({ scheduleName: name, creator: creator }, { $set: { scheduleName: name } });
+}
+module.exports.updateDescription = (scheduleName, username, description, modified) => {
+    Schedule.update({ scheduleName: scheduleName, creator: username }, { $set: { description: description, modified: modified } }).then(
+        console.log('updated')
+
+    )
+}
+
 module.exports.enumerateSchedules = () => {
 
 
@@ -75,7 +90,7 @@ module.exports.addToSchedule = (name, creator, subjectCode, courseCode, modified
     if (name && creator && subjectCode && courseCode) {
         if (pjs.courseExists(subjectCode, courseCode)) {
             //True logic
-            Schedule.updateOne({ "scheduleName": name, "creator": creator }, { $addToSet: { 'courses': { subject: subjectCode, course: courseCode, modified: modified } } }, (err, success) => {
+            Schedule.updateOne({ "scheduleName": name, "creator": creator }, { $addToSet: { 'courses': { subject: subjectCode, course: courseCode } }, modified: modified }, (err, success) => {
                 if (err) {
                     return false
                 } else {

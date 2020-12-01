@@ -23,3 +23,19 @@
     border-radius: 11px;
     border-style: ridge;
 }
+
+.switching-button {
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    border-radius: 0px;
+    border-style: none;
+}
+
+.button2 {
+    margin-top: 18px;
+}
+
+.big-area {
+    margin: 20px;
+}

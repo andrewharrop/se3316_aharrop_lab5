@@ -1,7 +1,21 @@
-<div class="delete-panel">
-    <input class="delete-input" [(ngModel)]="name" placeholder="Enter Schedule Name" /><br>
-    <button (click)="submit()">Delete</button>
+<div class="result">
+    <button (click)="switcher()">{{nowItIs}}</button>
 </div>
-<div *ngIf="result">
-    <div class="result" [innerHTML]='message'></div>
+<div *ngIf="whichView; else elseBlock">
+    <div class="delete-panel">
+        <input class="delete-input" [(ngModel)]="name" placeholder="Enter Schedule Name" /><br>
+        <button (click)="submit()">Delete</button>
+    </div>
+    <div *ngIf="result">
+        <div class="result" [innerHTML]='message'></div>
+    </div>
 </div>
+<ng-template #elseBlock>
+    <div class="delete-panel">
+        <input class="add-input" type="text" [(ngModel)]="sname" placeholder="schedule name" /><br>
+        <input class="add-input" type="text" [(ngModel)]="scode" placeholder="subject code" /><br>
+        <input class="add-input" type="text" [(ngModel)]="ccode" placeholder="course code" /><br>
+        <button (click)="deleteCourse()">Delete</button>
+    </div>
+
+</ng-template>

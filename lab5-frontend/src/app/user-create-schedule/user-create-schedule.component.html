@@ -1,5 +1,6 @@
 <div class="create-panel">
     <input class="create-input" placeholder="schedule name" [(ngModel)]="name" type="text" /><br>
+    <textarea class="desc-input" placeholder="description (optional)" cols="30" [(ngModel)]="description" rows="5" cols="50"></textarea><br>
     <button (click)="onSClick()">Create</button>
     <div *ngIf="serverStatus">
         <div class="result" [innerHTML]='serverStatus'></div>
