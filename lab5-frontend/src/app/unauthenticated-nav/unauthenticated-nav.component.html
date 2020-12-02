@@ -8,7 +8,7 @@
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/createschedule">Create Schedule</a></span>
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/addtoschedule">Add to schedule</a></span>
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/deleteschedule">Delete a Schedule</a></span>
-
+    <span *ngIf="auth.loggedIn()"><a routerLink="secure/writefeedback">Write a review</a></span>
     <span *ngIf="auth.loggedIn() || admin.loggedIn()"><app-user-logout></app-user-logout></span>
     <span *ngIf="auth.loggedIn()"><a routerLink="/secure/profile">Profile</a></span>
     <span *ngIf="!admin.loggedIn()"><a routerLink="/privicypolicy">Privicy policy</a></span>

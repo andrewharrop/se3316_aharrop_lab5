@@ -15,6 +15,7 @@ import { UserDeleteScheduleComponent } from './user-delete-schedule/user-delete-
 import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-privicy-policy.component';
 import { AdminLoginComponent} from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component'
+import { UserWriteFeedbackComponent } from './user-write-feedback/user-write-feedback.component';
 
 const routes: Routes = [
   { path: "login", component: UserLoginComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'secure/deleteschedule', component:UserDeleteScheduleComponent, canActivate:[UserAuthGuardGuard]},
   {path: 'privicypolicy', component:PublicPrivicyPolicyComponent},
   {path: 'admin/login', component:AdminLoginComponent},
-  {path: 'admin/dashboard', component:AdminDashboardComponent, canActivate:[AdminAuthGuard]}
+  {path: 'admin/dashboard', component:AdminDashboardComponent, canActivate:[AdminAuthGuard]},
+  {path: 'secure/writefeedback', component:UserWriteFeedbackComponent, canActivate:[UserAuthGuardGuard]}
 
 
 

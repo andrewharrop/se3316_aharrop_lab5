@@ -7,7 +7,8 @@ module.exports.courseExists = (query, course) => {
     let found = null;
     //console.log('hereff')
     course = course.toString().toUpperCase();
-    //console.log(course)
+    query = query.toUpperCase()
+        //console.log(course)
     if (query && course) {
         Object.keys(subjectData).forEach((key) => {
             if (query.toUpperCase() == key) {

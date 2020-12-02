@@ -12,8 +12,8 @@ const assert = require('assert');
 const e = require('express');
 const user = require('../models/user');
 const nev = require('email-verification')(mongoose);
-
-// nev.configure({
+const Feedback = require('../models/courseFeedback')
+    // nev.configure({
 
 // })
 FacebookStrategy = require('passport-facebook').Strategy;
@@ -314,6 +314,14 @@ router.post('/schedulefeedback', (req, res) => {
     scheduleName = req.body.scdname;
     creator = req.body.username;
 
+})
+
+router.post('/coursefeedback', (req, res) => {
+    creator = req.body.creator
+    feedback = req.body.feedback
+    course = req.body.course
+    subject = req.body.subject
+    Feedback.addFeedback(subject, course, creator, feedback)
 })
 
 

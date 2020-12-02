@@ -1,0 +1,9 @@
+<div class="feedback-panel">
+    We record all feedback.<br> Any innapropriate feedback will immidiately result in account suspension and possibly other reprecussions<br>
+    <input class="feedback input" placeholder="subject" [(ngModel)]="subject"><br>
+    <input class="feedback-input" placeholder="course" [(ngModel)]="course"><br>
+    <textarea rows="6" cols="40" [(ngModel)]="feedback"></textarea>
+    <br>
+    <button (click)='submit()'>Submit</button>
+
+</div>

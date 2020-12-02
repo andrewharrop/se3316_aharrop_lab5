@@ -24,6 +24,7 @@ import { PublicPrivicyPolicyComponent } from './public-privicy-policy/public-pri
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminFlagUserComponent } from './admin-flag-user/admin-flag-user.component';
+import { UserWriteFeedbackComponent } from './user-write-feedback/user-write-feedback.component';
 
 
 
@@ -44,7 +45,8 @@ import { AdminFlagUserComponent } from './admin-flag-user/admin-flag-user.compon
     PublicPrivicyPolicyComponent,
     AdminLoginComponent,
     AdminDashboardComponent,
-    AdminFlagUserComponent
+    AdminFlagUserComponent,
+    UserWriteFeedbackComponent
   ],
   imports: [
     BrowserModule,

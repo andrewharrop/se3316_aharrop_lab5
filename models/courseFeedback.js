@@ -21,20 +21,26 @@ const CourseFeedback = mongoose.Schema({
         default: []
     }
 });
-const Feedback = module.exports = mongoose.model("feebback", CourseFeedback)
+const Feedback = module.exports = mongoose.model("feedback", CourseFeedback)
 
 module.exports.addFeedback = (subject, course, creator, feedback) => {
     //make sure combonation exists
-    Feedback.find({ subject: subject, course: course }).then((data) => {
-        if (data.length == 0) {
-            feedbackS = new CourseFeedback({
-                subject: subject,
-                course: course,
-                feedback: [{ creator: creator, feedback: feedback }]
-            })
-            feedbackS.save()
-        } else {
-            Feedback.update({ subject: subject, course: course }, { $addToSet: { feedback: { creator: creator, feedback: feedback } } })
-        }
-    })
+    if (pjs.courseExists(subject, course)) {
+        Feedback.find({ subject: subject, course: course }).then((data) => {
+            if (data.length == 0) {
+                feedbackS = new Feedback({
+                    subject: subject,
+                    course: course,
+                    feedback: [{ creator: creator, feedback: feedback }]
+                })
+                feedbackS.save()
+            } else {
+                console.log('update')
+                Feedback.updateOne({ subject: subject, course: course }, { $push: { feedback: { creator: creator, feedback: feedback } } }).then(data => {
+                    console.log(data)
+                })
+            }
+        })
+    }
+
 }
