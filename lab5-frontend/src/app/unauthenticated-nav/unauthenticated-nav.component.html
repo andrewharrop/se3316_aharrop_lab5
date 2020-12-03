@@ -4,8 +4,12 @@
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a  routerLink="/secure/dashboard">Dashboard</a></span>
     <span><a  routerLink="/viewPublic">View public schedules</a></span>
     <span *ngIf="!admin.loggedIn()"><a   routerLink="/search">Search</a></span>
-
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/createschedule">Create Schedule</a></span>
+
+    <span *ngIf="!auth.loggedIn() && admin.loggedIn()"><a routerLink="/admin/manageusers">View Users</a></span>
+    <span *ngIf="!auth.loggedIn() && admin.loggedIn()"><a routerLink="/admin/createadmin">Create Admin</a></span>
+    <span *ngIf="!auth.loggedIn() && admin.loggedIn()"><a routerLink="/admin/searchusers">Flag/Unflag a user</a></span>
+
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/addtoschedule">Add to schedule</a></span>
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/deleteschedule">Delete a Schedule</a></span>
     <span *ngIf="auth.loggedIn()"><a routerLink="secure/writefeedback">Write a review</a></span>

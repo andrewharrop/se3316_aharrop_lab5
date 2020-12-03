@@ -25,6 +25,9 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminFlagUserComponent } from './admin-flag-user/admin-flag-user.component';
 import { UserWriteFeedbackComponent } from './user-write-feedback/user-write-feedback.component';
+import { AdminCreateComponent } from './admin-create/admin-create.component';
+import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
+import { AdminSearchUsersComponent } from './admin-search-users/admin-search-users.component';
 
 
 
@@ -46,7 +49,10 @@ import { UserWriteFeedbackComponent } from './user-write-feedback/user-write-fee
     AdminLoginComponent,
     AdminDashboardComponent,
     AdminFlagUserComponent,
-    UserWriteFeedbackComponent
+    UserWriteFeedbackComponent,
+    AdminCreateComponent,
+    AdminManageUsersComponent,
+    AdminSearchUsersComponent
   ],
   imports: [
     BrowserModule,

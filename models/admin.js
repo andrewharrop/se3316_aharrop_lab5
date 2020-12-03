@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const config = require('../config/database')
+const config = require('../config/database');
+const user = require('./user');
 const AdminSchema = mongoose.Schema({
     username: {
         type: String,
@@ -13,6 +14,9 @@ const AdminSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    creator: {
+        type: String
     }
 })
 
@@ -30,7 +34,6 @@ module.exports.getAdminByEmail = (email, callback) => {
 module.exports.addAdmin = (newAdmin, callback) => {
     //Need to make sure user does not already exist in table
     let adminNotExists = true;
-
     if (adminNotExists) {
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newAdmin.password, salt, (err, hash) => {

@@ -1,0 +1,5 @@
+<div *ngIf="anyUsers">
+    <div *ngFor="let user of data">
+        <div>Name: {{user.name}}, Email: {{user.email}}, Flagged: {{user.isFlagged}}</div>
+    </div>
+</div>

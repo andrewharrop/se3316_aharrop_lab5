@@ -1,0 +1,8 @@
+<input placeholder="username" [(ngModel)]="username"><br>
+<input placeholder="email" [(ngModel)]="email"><br>
+<input placeholder="password" type="password" [(ngModel)]="password"><br>
+<button (click)="submit()">Submit</button>
+
+<div *ngIf="sendInit">
+    <div>{{serverData}}</div>
+</div>

@@ -1,0 +1,10 @@
+<input [(ngModel)]="username" placeholder="enter username">
+<button (click)="search()">Submit</button>
+<div>{{result_init}}</div>
+<div *ngIf="isFound">
+    Flag:<input type="checkbox" [(ngModel)]="checkStatus"> User flagged: {{checkStatus}}
+    <button (click)="change()">Submit</button>
+</div>
+
+<div>{{result}}</div>
+<div>{{serverStatus2Name}}</div>

@@ -10,16 +10,42 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UnauthenticatedViewPublicComponent implements OnInit {
   
-
+  miniS=[];
+  bigS=[];
+  expanded:boolean=false;
   constructor(private http:HttpClient) { }
   //dataManager
   serverData;
-  
+  expandStatus:String="Expand";
   setServers(data:any){
     this.serverData = data
-    console.log(data)
-  }
+    //this.miniServer(this.serverData);
 
+  }
+  // miniServer(data){
+  //   this.miniS=[];
+  //   this.miniS.push(["Schedule Name", data.message[0].scheduleName])
+  //   this.miniS.push(["Creator userame", data.message[0].creator])
+  //   this.miniS.push(["Course Count", data.message[0].course.length])
+
+  // }
+  // fullServer(data){
+  //   this.bigS=[];
+  //   //for(let x = 0' x < mess)
+  //   this.bigS.push(["Schedule Name", data.message[0].scheduleName])
+  //   this.bigS.push(["Creator userame", data.message[0].creator])
+  //   //List courses
+  //   //this.bigS.push(["Course Count", data.message[0].course.length])
+  // }
+  onExpand(){
+    this.expanded=!this.expanded;
+    if(this.expandStatus="Expand"){
+      this.expandStatus="Minimize"
+    }else{
+      this.expandStatus="Expand"
+    }
+    
+  }
   getServer() {
       let response:any;
       this.http.get('http://'+window.location.hostname+':3000/public/schedules').toPromise().then(data=>{

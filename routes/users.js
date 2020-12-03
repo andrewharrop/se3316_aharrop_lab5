@@ -13,9 +13,14 @@ const e = require('express');
 const user = require('../models/user');
 const nev = require('email-verification')(mongoose);
 const Feedback = require('../models/courseFeedback')
-    // nev.configure({
+const SanitizeGeneral = require('../processing/sanitizer').generalSanitize;
+const SanitizeFeedback = require('../processing/sanitizer').SanitizeFeedback;
+const SanitizeDescription = require('../processing/sanitizer').SanitizeDescription;
+// nev.configure({
 
 // })
+
+//Alternate login strategy. ToDo
 FacebookStrategy = require('passport-facebook').Strategy;
 
 passport.use(new FacebookStrategy({
@@ -35,6 +40,7 @@ passport.use(new FacebookStrategy({
 //app secret: be4f994d1e25be7ae2d5e34bb31f5283
 var url = 'mongodb://localhost:27017/lab5web';
 
+//Express setup
 router.use(bodyparser.urlencoded({ extended: true }));
 router.use(bodyparser.json());
 
@@ -42,85 +48,101 @@ let regStatus = true;
 
 
 //Implement routing for authenticated users here
-router.post('/register', (req, res, next) => {
-    name = req.body.name;
-    email = req.body.email;
-    username = req.body.username;
-    password = req.body.password;
-    password2 = req.body.password2
-        //if ussser already exists: here
-    let sdata;
-    User.find({ $or: [{ username: username }, { email: email }] }).then((data) => {
 
-        if (data.length == 0) {
-            if (name && email && username && password) {
-                const re = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-                if (re.test(email)) {
-                    if (password == password2) {
-                        if (password.length > 5) {
-                            let newUser = new User({
-                                name: req.body.name,
-                                email: req.body.email,
-                                username: req.body.username,
-                                password: req.body.password, //Password is exposed here
-                                isFlagged: false
-                            });
-                            User.addUser(newUser, (err, user) => {
-                                if (err) res.json({ success: false, message: "failed to register user" })
-                                    //Some logic must be added here if user is already registered
-                                else res.json({ success: true, message: "user registered successfully" })
-                            });
+//Register logic
+router.post('/register', (req, res, next) => {
+        name = SanitizeGeneral(req.body.name);
+        email = req.body.email;
+        username = SanitizeGeneral(req.body.username);
+        password = req.body.password;
+        password2 = req.body.password2
+
+        let sdata;
+        if (username && name) {
+            User.find({ $or: [{ username: username }, { email: email }] }).then((data) => {
+                //Executes if no user exists with userame/email entered
+                if (data.length == 0) {
+                    //make sure all fields full
+                    if (name && email && username && password && password2) {
+                        const re = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+                        //Email regex
+                        if (re.test(email)) {
+                            //Passwords match
+                            if (password == password2) {
+                                //Password is long enough
+                                if (password.length > 5) {
+                                    //Passed all tests, create user
+                                    let newUser = new User({
+                                        name: req.body.name,
+                                        email: req.body.email,
+                                        username: req.body.username,
+                                        password: req.body.password,
+                                        isFlagged: false
+                                    });
+                                    //Add user
+                                    User.addUser(newUser, (err, user) => {
+                                        if (err) res.json({ success: false, message: "failed to register user" })
+                                        else res.json({ success: true, message: "user registered successfully" })
+                                    });
+                                    //Logic based on failure of various tests
+                                } else {
+                                    res.json({ success: false, message: "please enter a password that is at least 6 charachters" });
+                                    res.end();
+                                }
+                            } else {
+                                res.json({ success: false, message: "please enter passwords that match" });
+                                res.end();
+                            }
+
                         } else {
-                            res.json({ success: false, message: "please enter a password that is at least 6 charachters" });
+                            res.json({ success: false, message: "please enter a valid email" });
                             res.end();
                         }
                     } else {
-                        res.json({ success: false, message: "please enter passwords that match" });
+                        res.json({ success: false, message: "please fill out all fields" });
                         res.end();
                     }
-
                 } else {
-                    res.json({ success: false, message: "please enter a valid email" });
-                    res.end();
+                    res.json({ success: false, message: "That email or username is already registered!" })
                 }
-            } else {
-                res.json({ success: false, message: "please fill out all fields" });
-                res.end();
-            }
+            })
         } else {
-            res.json({ success: false, message: "That email or username is already registered!" })
+            res.json({ success: false, message: "The data you entered is invalid" });
+            res.end();
         }
+
+        //Old
+        // let newUser = new User({
+        //     name: req.body.name,
+        //     email: req.body.email,
+        //     username: req.body.username,
+        //     password: req.body.password, //Password is exposed here
+        //     isFlagged: false
+        // });
+        //Logic can be added here if the username or email have already been taken
+        //console.log(mongoose.model("User").find({ "username": req.body.username }).count())
+        //mongoose.model("User").findOne()
+
+
+
+
+
+
     })
-
-
-    // let newUser = new User({
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     username: req.body.username,
-    //     password: req.body.password, //Password is exposed here
-    //     isFlagged: false
-    // });
-    //Logic can be added here if the username or email have already been taken
-    //console.log(mongoose.model("User").find({ "username": req.body.username }).count())
-    //mongoose.model("User").findOne()
-
-
-
-
-
-
-})
-
+    //Update password logic
 router.post('/updatepassword', (req, res, next) => {
     //username, email for verification
     let email = req.body.email; //both candidate keys
     let username = req.body.username
     let newPassword = req.body.password;
+    //Make sure password is long enough
     if (newPassword.length > 5) {
+        //True logic
         User.changePassword(username, email, newPassword);
         res.json({ status: true, message: 'Password updated' })
         res.end()
     } else {
+        //False logic
         res.json({ status: false, message: 'Password not updated' })
         res.end()
     }
@@ -132,6 +154,7 @@ router.get('/auth/facebook/callback',
 
         scope: ['email']
     }));
+
 router.post('/auth', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -172,28 +195,32 @@ router.post('/auth', (req, res, next) => {
 
 
 });
-
+//Send profile to user, fix jwt config
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-
     res.json({ user: req.user })
 });
+
+//Detete schedule logig
 router.post('/deleteschedule', /*passport.authenticate('jwt', { session: false }),*/ (req, res, next) => {
     name = req.body.name;
     let user2 = req.body.username
     description = req.body.description
         //console.log(user, name)
+        //Check if it exists, delete if it does
     Schedule.findOneAndDelete({ scheduleName: name, creator: user2 }, (err) => {
             if (err) res.json({ status: true, message: "Error deleting schedule" });
             else res.json({ status: true, message: "If a schedule exists under that name, it was deleted" })
             res.end()
         }) //where({scheduleName:name, creator:user})
-})
+});
+
+//create schedule logic
 router.post('/createschedule', (req, res, next) => {
-    const scheduleName = req.body.name;
+    const scheduleName = SanitizeGeneral(req.body.name);
     const creator = req.body.creator
-    const description = req.body.description
+    const description = SanitizeDescription(req.body.description)
     let date = new Date();
-    let created = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString()
+    let created = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString()
 
     //let courses = req.body.courses
     //Add creatopn data
@@ -246,7 +273,7 @@ router.post('/deletecourse', (req, res, next) => {
     let subject = req.body.course;
     let scname = req.body.name;
     let date = new Date();
-    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString()
+    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString()
     Schedule.deleteCourse(scname, subject, course, creator, modified);
 })
 router.post('/changeschedulename', (req, res) => {
@@ -272,7 +299,7 @@ router.post('/addtoschedule', (req, res, next) => {
 router.post('/updatescheduledescription', (req, res, next) => {
     const scheduleName = req.body.name;
     const creator = req.body.creator;
-    const description = req.body.description;
+    const description = SanitizeDescription(req.body.description);
     let date = new Date();
     let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString();
     console.log(scheduleName, creator, description, modified)
@@ -305,20 +332,21 @@ router.get('/publicschdedules', (req, res) => {
 })
 
 router.get('myschdedules', (req, res) => {
-    name = req.body.username;
-    Schedule.find({ creator: username }).then((data) => {
-        res.json(data);
+        name = req.body.username;
+        Schedule.find({ creator: username }).then((data) => {
+            res.json(data);
+        })
     })
-})
-router.post('/schedulefeedback', (req, res) => {
-    scheduleName = req.body.scdname;
-    creator = req.body.username;
+    //Not in use
+    // router.post('/schedulefeedback', (req, res) => {
+    //     scheduleName = req.body.scdname;
+    //     creator = req.body.username;
 
-})
+// })
 
 router.post('/coursefeedback', (req, res) => {
     creator = req.body.creator
-    feedback = req.body.feedback
+    feedback = SanitizeFeedback(req.body.feedback)
     course = req.body.course
     subject = req.body.subject
     Feedback.addFeedback(subject, course, creator, feedback)

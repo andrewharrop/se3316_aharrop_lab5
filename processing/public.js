@@ -3,30 +3,16 @@ const timetableData = require('../resources/Lab3-timetable-data.json');
 
 module.exports.unauthSearch = (query, course) => {
     let found = null;
-    //console.log(typeof course)
-    // try {
-    //     course = parseInt(course)
-    // } catch (err) {
-
-    // }
-    // console.log(course)
-    //console.log(typeof course)
-    //if (/[a-zA-Z]/.test(course.charAt(course.length - 1))) {
-    //   course = course.toUpperCase()
-
-    // } else {
-    //   course = parseInt(course);
+    //Add sanitization
+    //Consistent format
     course = course.toString().toUpperCase()
-        //console.log(course)
-        //console.log(course)
 
+    //Make sure user entered something
     if (query && course) {
-        Object.keys(subjectData).forEach((key) => {
+        Object.keys(subjectData).forEach((key) => { //make sure that there is a course that matched query
             if (query.toUpperCase() == key) {
                 found = subjectData[key];
             }
-
-
         })
     } else {
         return "Invalid Query"
@@ -39,7 +25,7 @@ module.exports.unauthSearch = (query, course) => {
                 if (timetableData[x].subject == query.toUpperCase()) {
 
                     res = [timetableData[x]]
-                    return res
+                    return res //Look for matching course/subject in timetable
                 }
 
 

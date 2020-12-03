@@ -53,6 +53,8 @@ module.exports.addUser = (newUser, callback) => {
         //User already exists logic
     };
 };
+//module.exports.changeFlagged = (username)
+
 module.exports.changePassword = (username, email, password) => {
     User.find({ username: username, email: email }).then(data => {
         if (data.length > 0) {
@@ -69,9 +71,25 @@ module.exports.changePassword = (username, email, password) => {
         }
     })
 }
+
+//Compare passwords
 module.exports.comparePassword = (candidatePassword, hash, callback) => {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
         if (err) throw err;
         callback(null, isMatch);
     });
 };
+
+//Flag user logic
+module.exports.setFlagged = (username, flagged) => {
+    if (typeof(flagged) == Boolean) {
+        User.find({ username: username }).then(data => {
+            if (data.length == 1) {
+                User.update({ username: username }, { $set: { isFlagged: flagged } }).then(data => {
+                    return true;
+                })
+                return false;
+            }
+        })
+    }
+}

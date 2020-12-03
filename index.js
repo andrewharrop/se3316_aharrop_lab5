@@ -61,7 +61,6 @@ app.use(passport.session());
 app.get('/', (req, res) => {
     res.send('Invalid endpoint');
 });
-//create three routes: admin, users, and unauthenticated
 
 
 //Listen on port
