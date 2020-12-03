@@ -50,6 +50,11 @@ let regStatus = true;
 //Implement routing for authenticated users here
 
 //Register logic
+
+
+router.post()
+
+
 router.post('/register', (req, res, next) => {
         name = SanitizeGeneral(req.body.name);
         email = req.body.email;

@@ -1,0 +1,11 @@
+.scnamesearch {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.main {
+    width: fit-content;
+    background-color: wheat;
+    margin-left: 40%;
+    margin-top: 80px;
+}
