@@ -301,7 +301,7 @@ router.post('/updatescheduledescription', (req, res, next) => {
     const creator = req.body.creator;
     const description = SanitizeDescription(req.body.description);
     let date = new Date();
-    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDay().toString();
+    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString();
     console.log(scheduleName, creator, description, modified)
     Schedule.updateDescription(scheduleName, creator, description, modified)
     res.json({ message: "Updated" })
