@@ -1,9 +1,24 @@
-.schedule-panel {
-    background-color: wheat;
-    padding: 4px;
-    margin-top: 5px;
-    width: fit-content;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
+    .schedule-panel {
+        background-color: wheat;
+        padding: 4px;
+        margin-top: 5px;
+        width: fit-content;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .holder {
+        margin-top: 20px;
+        background-color: #1111111a;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+    }
+    
+    .ebutton {
+        border-radius: 0px;
+        border: none;
+        border-style: none;
+    }

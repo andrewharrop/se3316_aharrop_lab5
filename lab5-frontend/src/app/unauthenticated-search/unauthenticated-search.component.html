@@ -19,8 +19,16 @@
                     <hr>
                     <div class="entry">{{item[0]}} : {{item[1]}}</div>
                 </div>
+                <div *ngIf="feedbackExists">
+                    {{feedbackExists}}
+
+                    <div *ngFor="let feeback of feedbackObject">
+                        <hr> Feedback From: {{feeback.creator}}<br> Their feedback: {{feeback.feedback}}
+                    </div>
+                </div>
             </ng-template>
         </div>
+
         <button class="expand-button" (click)="expand()">{{inButton}}</button>
     </div>
 </div>

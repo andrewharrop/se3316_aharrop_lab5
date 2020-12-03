@@ -28,6 +28,7 @@ import { UserWriteFeedbackComponent } from './user-write-feedback/user-write-fee
 import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { AdminSearchUsersComponent } from './admin-search-users/admin-search-users.component';
+import { UserChangeScheduleNameComponent } from './user-change-schedule-name/user-change-schedule-name.component';
 
 
 
@@ -52,7 +53,8 @@ import { AdminSearchUsersComponent } from './admin-search-users/admin-search-use
     UserWriteFeedbackComponent,
     AdminCreateComponent,
     AdminManageUsersComponent,
-    AdminSearchUsersComponent
+    AdminSearchUsersComponent,
+    UserChangeScheduleNameComponent
   ],
   imports: [
     BrowserModule,

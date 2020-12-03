@@ -1,0 +1,17 @@
+div {
+    background-color: wheat;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    text-align: center;
+    padding-bottom: 20px;
+    width: fit-content;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+
+p {
+    font-style: oblique;
+}

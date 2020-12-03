@@ -22,6 +22,9 @@ export class UnauthenticatedSearchComponent implements OnInit {
   daysString:String;
   instructorsString:String;
   inButton:String="More";
+  feedbackExists:Boolean=false;
+feedbackArray=[]
+feedbackObject:any;
   ngOnInit(): void {
   }
   getValue(data){
@@ -70,7 +73,12 @@ export class UnauthenticatedSearchComponent implements OnInit {
     }  
     
   }
+  getFeedback(data){
+    return data.feedback
+  }
   submit(){
+    this.feedbackExists=false;
+    this.feedbackArray=[];
     this.visibleResultsArr1=[]
     this.visibleResultsArr2=[]
     this.expandStatus=false;
@@ -79,6 +87,16 @@ export class UnauthenticatedSearchComponent implements OnInit {
       this.http.post('http://' + window.location.hostname+':3000/public/unauthsearch', {query:this.searchInput, course:this.courseInput}).subscribe(data=>{
       try{
         
+          if(this.getFeedback(data).length){
+            // for(let i = 0; i < this.getFeedback(data)[0].feedback.length; i++){
+            //   this.feedbackArray.push(this.getFeedback(data)[0].feedback[i]);
+            //   console.log(this.feedbackArray)
+            // }
+          this.feedbackObject=this.getFeedback(data)[0].feedback
+          console.log(this.feedbackObject)
+          this.feedbackExists=true;
+
+          }
           this.resultsStatus=""
           this.results=this.getValue(data)
           this.got=true;

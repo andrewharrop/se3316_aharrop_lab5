@@ -1,55 +1,56 @@
-<p>unauthenticated-view-public works!</p>
-<div *ngIf="serverData">
-    <!--<p>{{serverData.message}}</p>-->
-    <button (click)="onExpand()">{{expandStatus}}</button>
-    <div *ngIf="!expanded; else elseBlock">
-        <div *ngFor="let schedule of serverData.message">
-            <div>
+<div class="holder">
+    <div *ngIf="serverData">
+        <!--<p>{{serverData.message}}</p>-->
+        <button class="ebutton" (click)="onExpand()">{{expandStatus}}</button>
+        <div *ngIf="!expanded; else elseBlock">
+            <div *ngFor="let schedule of serverData.message">
+                <div>
+                    <div class="schedule-panel">
+                        Creator:
+                        <a [innerHTML]="schedule.creator"></a><br> Schedule name:
+                        <a [innerHTML]="schedule.scheduleName"></a><br>Course Count:
+                        <a [innerHTML]="schedule.courses.length"></a>
+                        <!--
+                            <div *ngFor="let course of schedule.courses">
+                            <a [innerHTML]="course.subject"></a>
+                            <a>_</a>
+                            <a [innerHTML]="course.course"></a>
+            
+                        </div>
+                        -->
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <ng-template #elseBlock>
+            <div *ngFor="let schedule of serverData.message">
                 <div class="schedule-panel">
                     Creator:
                     <a [innerHTML]="schedule.creator"></a><br> Schedule name:
-                    <a [innerHTML]="schedule.scheduleName"></a><br>Course Count:
-                    <a [innerHTML]="schedule.courses.length"></a>
-                    <!--
-                        <div *ngFor="let course of schedule.courses">
+                    <a [innerHTML]="schedule.scheduleName"></a><br> Courses
+
+                    <div *ngFor="let course of schedule.courses">
+                        Subject:
                         <a [innerHTML]="course.subject"></a>
-                        <a>_</a>
+                        <a> Course: </a>
                         <a [innerHTML]="course.course"></a>
-        
+
                     </div>
-                    -->
-
+                    <div *ngIf="schedule.description!=undefined">
+                        Description:
+                        <a [innerHTML]="schedule.description"></a>
+                    </div>
+                    <div>
+                        Last Modified:
+                        <a [innerHTML]=schedule.modified></a>
+                    </div>
                 </div>
-
             </div>
-        </div>
+
+        </ng-template>
 
     </div>
-    <ng-template #elseBlock>
-        <div *ngFor="let schedule of serverData.message">
-            <div class="schedule-panel">
-                Creator:
-                <a [innerHTML]="schedule.creator"></a><br> Schedule name:
-                <a [innerHTML]="schedule.scheduleName"></a><br> Courses
-
-                <div *ngFor="let course of schedule.courses">
-                    Subject:
-                    <a [innerHTML]="course.subject"></a>
-                    <a> Course: </a>
-                    <a [innerHTML]="course.course"></a>
-
-                </div>
-                <div *ngIf="schedule.description!=undefined">
-                    Description:
-                    <a [innerHTML]="schedule.description"></a>
-                </div>
-                <div>
-                    Last Modified:
-                    <a [innerHTML]=schedule.modified></a>
-                </div>
-            </div>
-        </div>
-
-    </ng-template>
-
 </div>

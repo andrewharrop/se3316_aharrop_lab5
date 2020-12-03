@@ -19,6 +19,7 @@ import { UserWriteFeedbackComponent } from './user-write-feedback/user-write-fee
 import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { AdminSearchUsersComponent } from './admin-search-users/admin-search-users.component';
+import {UserChangeScheduleNameComponent}  from './user-change-schedule-name/user-change-schedule-name.component';
 
 const routes: Routes = [
   { path: "login", component: UserLoginComponent },
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: 'secure/writefeedback', component: UserWriteFeedbackComponent, canActivate: [UserAuthGuardGuard] },
   { path: 'admin/manageusers', component: AdminManageUsersComponent, canActivate: [AdminAuthGuard] },
   { path: 'admin/createadmin', component: AdminCreateComponent, canActivate: [AdminAuthGuard] },
-  { path: 'admin/searchusers', component: AdminSearchUsersComponent, canActivate: [AdminAuthGuard] }
+  { path: 'admin/searchusers', component: AdminSearchUsersComponent, canActivate: [AdminAuthGuard] },
+  {path:'secure/changeschedulename', component:UserChangeScheduleNameComponent,canActivate: [UserAuthGuardGuard]}
 
 
 

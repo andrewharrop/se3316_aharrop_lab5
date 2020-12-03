@@ -9,8 +9,9 @@
     <span *ngIf="!auth.loggedIn() && admin.loggedIn()"><a routerLink="/admin/manageusers">View Users</a></span>
     <span *ngIf="!auth.loggedIn() && admin.loggedIn()"><a routerLink="/admin/createadmin">Create Admin</a></span>
     <span *ngIf="!auth.loggedIn() && admin.loggedIn()"><a routerLink="/admin/searchusers">Flag/Unflag a user</a></span>
-
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/addtoschedule">Add to schedule</a></span>
+
+    <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/changeschedulename">Change schedule name</a></span>
     <span *ngIf="auth.loggedIn() && !admin.loggedIn()"><a routerLink="/secure/deleteschedule">Delete a Schedule</a></span>
     <span *ngIf="auth.loggedIn()"><a routerLink="secure/writefeedback">Write a review</a></span>
     <span *ngIf="auth.loggedIn() || admin.loggedIn()"><app-user-logout></app-user-logout></span>
