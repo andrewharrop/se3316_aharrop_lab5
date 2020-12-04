@@ -33,6 +33,9 @@ export class UserDeleteScheduleComponent implements OnInit {
   getMessage(value){
     return value.message
   }
+  getStatus(data){
+    return data.status
+}
   submit(){
     this.http.post('http://' + window.location.hostname + ":3000/secure/deleteschedule",
     {name:this.name, username:this.getUsername(localStorage.getItem('user'))}).subscribe(data=>{
@@ -40,9 +43,11 @@ export class UserDeleteScheduleComponent implements OnInit {
       this.result=true;
     })
   }
+  dcStatus:String=""
   deleteCourse(){
+    this.dcStatus=""
     this.http.post('http://' + window.location.hostname + ':3000/secure/deletecourse', {name:this.sname, coursecode:this.ccode, subjectcode:this.scode, creator:JSON.parse(localStorage.getItem('user')).username}).subscribe((data)=>{
-      
+      this.dcStatus = this.getStatus(data);
     })
   }
 

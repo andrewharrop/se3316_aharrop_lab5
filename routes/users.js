@@ -12,7 +12,8 @@ const assert = require('assert');
 const e = require('express');
 const user = require('../models/user');
 const nev = require('email-verification')(mongoose);
-const Feedback = require('../models/courseFeedback')
+const Feedback = require('../models/courseFeedback');
+const { feedbackSanitize, descriptionSanitize } = require('../processing/sanitizer');
 const SanitizeGeneral = require('../processing/sanitizer').generalSanitize;
 const SanitizeFeedback = require('../processing/sanitizer').SanitizeFeedback;
 const SanitizeDescription = require('../processing/sanitizer').SanitizeDescription;
@@ -52,9 +53,17 @@ let regStatus = true;
 //Register logic
 
 
-router.post()
+//router.post()
 
-
+router.post('/flagunflag', (req, res) => {
+    console.log('here')
+    isPublic = req.body.public;
+    name = req.body.name;
+    creator = req.body.creator;
+    Schedule.update({ scheduleName: name, creator: creator }, { $set: { isPublic: isPublic } }).then(data => {
+        res.json({ status: "success" })
+    })
+})
 router.post('/register', (req, res, next) => {
         name = SanitizeGeneral(req.body.name);
         email = req.body.email;
@@ -223,7 +232,7 @@ router.post('/deleteschedule', /*passport.authenticate('jwt', { session: false }
 router.post('/createschedule', (req, res, next) => {
     const scheduleName = SanitizeGeneral(req.body.name);
     const creator = req.body.creator
-    const description = SanitizeDescription(req.body.description)
+    const description = descriptionSanitize(req.body.description)
     let date = new Date();
     let created = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString()
 
@@ -274,12 +283,18 @@ router.post('/createschedule', (req, res, next) => {
 });
 router.post('/deletecourse', (req, res, next) => {
     let creator = req.body.creator;
-    let course = req.body.course;
-    let subject = req.body.course;
+    let course = req.body.coursecode;
+    let subject = req.body.subjectcode.toLowerCase();
     let scname = req.body.name;
     let date = new Date();
+
     let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString()
-    Schedule.deleteCourse(scname, subject, course, creator, modified);
+        // Schedule.deleteCourse(scname, subject, course, creator, modified);
+    Schedule.updateOne({ creator: creator, scheduleName: scname }, { $pull: { courses: { subject: subject, course: course } } }).then(data => {
+        Schedule.updateOne({ creator: creator, scheduleName: scname }, { $set: { modified: modified } }).then(data => {
+            res.json({ status: "If a course under those descriptions was in the schedule, it has been deleted" })
+        })
+    })
 })
 router.post('/changeschedulename', (req, res) => {
     const creator = req.body.creator;
@@ -287,11 +302,13 @@ router.post('/changeschedulename', (req, res) => {
 })
 router.post('/addtoschedule', (req, res, next) => {
     const scheduleName = req.body.name;
-    const subjectCode = req.body.subject;
+    const subjectCode = req.body.subject
     const courseCode = req.body.course;
     const username = req.body.username;
+    let date = new Date();
 
-    //*Add modification data
+    let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString()
+        //*Add modification data
 
     let status = Schedule.addToSchedule(scheduleName, username, subjectCode, courseCode, modified)
     if (status) {
@@ -301,10 +318,18 @@ router.post('/addtoschedule', (req, res, next) => {
     };
     res.end();
 });
+
+router.post('/getuserschedule', (req, res) => {
+    const username = req.body.username;
+    Schedule.find({ creator: username }).then(data => {
+        res.json({ schedules: data });
+    })
+})
+
 router.post('/updatescheduledescription', (req, res, next) => {
     const scheduleName = req.body.name;
     const creator = req.body.creator;
-    const description = SanitizeDescription(req.body.description);
+    const description = descriptionSanitize(req.body.description);
     let date = new Date();
     let modified = date.getFullYear().toString() + '-' + date.getMonth().toString() + '-' + date.getDate().toString();
     console.log(scheduleName, creator, description, modified)
@@ -351,10 +376,37 @@ router.get('myschdedules', (req, res) => {
 
 router.post('/coursefeedback', (req, res) => {
     creator = req.body.creator
-    feedback = SanitizeFeedback(req.body.feedback)
+    feedback = feedbackSanitize(req.body.feedback)
     course = req.body.course
     subject = req.body.subject
     Feedback.addFeedback(subject, course, creator, feedback)
+})
+router.post('/searchschedules', (req, res) => {
+    name = req.body.name;
+    creator = req.body.creator;
+    console.log(name, creator)
+
+    Schedule.find({ scheduleName: name, creator: creator }).then(data => {
+        if (data.length != 0) {
+            res.json({ status: true });
+        } else {
+            res.json({ status: false });
+        }
+    })
+})
+router.post('/changename', (req, res) => {
+    newname = SanitizeGeneral(req.body.newname);
+    creator = req.body.creator;
+    name = req.body.name
+    let date = new Date();
+    let created = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString()
+    if (newname) {
+        Schedule.updateOne({ scheduleName: name, creator: creator }, { $set: { scheduleName: newname, modified: created } }).then(data => {
+            res.json({ status: true })
+        })
+    } else {
+        res.json({ status: false })
+    }
 })
 
 

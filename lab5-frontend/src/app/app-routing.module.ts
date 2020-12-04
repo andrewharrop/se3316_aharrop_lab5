@@ -20,7 +20,7 @@ import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { AdminSearchUsersComponent } from './admin-search-users/admin-search-users.component';
 import {UserChangeScheduleNameComponent}  from './user-change-schedule-name/user-change-schedule-name.component';
-
+import {UsersManageScheduleComponent} from './users-manage-schedule/users-manage-schedule.component'
 const routes: Routes = [
   { path: "login", component: UserLoginComponent },
   { path: "", component: UserLoginComponent },
@@ -40,7 +40,8 @@ const routes: Routes = [
   { path: 'admin/manageusers', component: AdminManageUsersComponent, canActivate: [AdminAuthGuard] },
   { path: 'admin/createadmin', component: AdminCreateComponent, canActivate: [AdminAuthGuard] },
   { path: 'admin/searchusers', component: AdminSearchUsersComponent, canActivate: [AdminAuthGuard] },
-  {path:'secure/changeschedulename', component:UserChangeScheduleNameComponent,canActivate: [UserAuthGuardGuard]}
+  {path:'secure/changeschedulename', component:UserChangeScheduleNameComponent,canActivate: [UserAuthGuardGuard]},
+  {path:'secure/manageschedule', component:UsersManageScheduleComponent, canActivate:[UserAuthGuardGuard]}
 
 
 

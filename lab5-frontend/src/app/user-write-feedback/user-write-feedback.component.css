@@ -1,0 +1,12 @@
+.feedback-panel {
+    display: table;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    background-color: wheat;
+    width: fit-content;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}

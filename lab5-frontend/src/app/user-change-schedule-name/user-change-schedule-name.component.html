@@ -1,5 +1,15 @@
 <div class="main">
     <div class="scnamesearch">
-        Schedule name: <input placeholder="enter schedule name"><br><button>Search</button>
+        Schedule name: <input [(ngModel)]="ngMInput" placeholder="enter schedule name"><br><button (click)="submitSearch()">Search</button>
+    </div>
+</div>
+<div class="main">
+    <div *ngIf="scheduleFound">
+        <p>Enter the new name</p><input [(ngModel)]="newName" placeholder="new name">
+
+        <button (click)="submitChanges()">Change</button>
+        <div *ngIf="submit2">
+            Change completed: {{finStatus.status}}
+        </div>
     </div>
 </div>

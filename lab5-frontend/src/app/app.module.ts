@@ -29,6 +29,7 @@ import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminManageUsersComponent } from './admin-manage-users/admin-manage-users.component';
 import { AdminSearchUsersComponent } from './admin-search-users/admin-search-users.component';
 import { UserChangeScheduleNameComponent } from './user-change-schedule-name/user-change-schedule-name.component';
+import { UsersManageScheduleComponent } from './users-manage-schedule/users-manage-schedule.component';
 
 
 
@@ -54,7 +55,8 @@ import { UserChangeScheduleNameComponent } from './user-change-schedule-name/use
     AdminCreateComponent,
     AdminManageUsersComponent,
     AdminSearchUsersComponent,
-    UserChangeScheduleNameComponent
+    UserChangeScheduleNameComponent,
+    UsersManageScheduleComponent
   ],
   imports: [
     BrowserModule,
