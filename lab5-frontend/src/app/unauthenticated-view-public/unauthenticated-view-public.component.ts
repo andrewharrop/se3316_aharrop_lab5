@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { UserAuthServiceService } from '../user-auth-service.service'
 
 
 @Component({
@@ -13,15 +13,40 @@ export class UnauthenticatedViewPublicComponent implements OnInit {
   miniS=[];
   bigS=[];
   expanded:boolean=false;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, public auth:UserAuthServiceService) { }
   //dataManager
   serverData;
   expandStatus:String="Expand";
   setServers(data:any){
     this.serverData = data
-    //this.miniServer(this.serverData);
-
+    //console.log(this.serverData)
   }
+
+  courses;
+  fullCourseList=[]
+  // develop_view(schedule){
+  //   this.fullCourseList=[]
+  //   //We have the courses here
+  //   this.courses=schedule.courses
+  //   if(this.courses.length>0){
+  //    //Old gave stackoverflow.
+  //     for(let i = 0; i < this.courses.length; i++){
+  //       this.http.post('http://' + window.location.hostname + ':3000/secure/getfullcourse', {subject:this.courses[i].subject, course:this.courses[i].course }).subscribe(data=>{
+  //         console.log(data)
+  //       })
+  //       //console.log('Here')
+  //       console.log(this.courses[i])
+  //     }
+  //   }
+
+  //   // for(let i = 0; i < this.courses.length; i++){
+  //   //   this.http.post('http://' + window.location.hostname + '"3000/public/unauthsearch', {query:this.courses[i].subject, course:this.courses[i].course}).subscribe(data=>{
+  //   //     this.fullCourseList.push(data);
+  //   //   })
+  //   // }
+  //   //console.log(this.fullCourseList)
+  //   return this.fullCourseList
+  // }
   // miniServer(data){
   //   this.miniS=[];
   //   this.miniS.push(["Schedule Name", data.message[0].scheduleName])
@@ -41,6 +66,7 @@ export class UnauthenticatedViewPublicComponent implements OnInit {
     this.expanded=!this.expanded;
     if(this.expandStatus="Expand"){
       this.expandStatus="Minimize"
+      
     }else{
       this.expandStatus="Expand"
     }
@@ -52,7 +78,8 @@ export class UnauthenticatedViewPublicComponent implements OnInit {
        this.setServers(
          data
          )
-         console.log(data)
+        //this.develop_view(data)
+         //console.log(data)
 
      })
 

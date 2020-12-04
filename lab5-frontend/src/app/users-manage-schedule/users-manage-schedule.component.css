@@ -1,0 +1,19 @@
+    .bit-panel {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        align-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: wheat;
+        border-radius: 10px;
+        border-style: none;
+        width: fit-content;
+        padding: 10px;
+    }
+    
+    .block {
+        color: blue;
+        border-color: bisque;
+        border-style: ridge;
+    }

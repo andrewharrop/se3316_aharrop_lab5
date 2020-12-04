@@ -13,7 +13,10 @@ const e = require('express');
 const user = require('../models/user');
 const nev = require('email-verification')(mongoose);
 const Feedback = require('../models/courseFeedback');
-const { feedbackSanitize, descriptionSanitize } = require('../processing/sanitizer');
+//const { feedbackSanitize, descriptionSanitize } = require('../processing/sanitizer');
+const pProc = require('../processing/public');
+const { query } = require('express');
+const { count } = require('console');
 const SanitizeGeneral = require('../processing/sanitizer').generalSanitize;
 const SanitizeFeedback = require('../processing/sanitizer').SanitizeFeedback;
 const SanitizeDescription = require('../processing/sanitizer').SanitizeDescription;
@@ -281,6 +284,13 @@ router.post('/createschedule', (req, res, next) => {
     }
     //console.log(JSON(sessionStorage.getItem('user')).name)
 });
+router.post('/getfullcourse', (req, res) => {
+    //No real user input here
+    subject = req.body.subject;
+    course = req.body.course;
+    res.json({ result: pProc.getFull(subject, course) });
+
+})
 router.post('/deletecourse', (req, res, next) => {
     let creator = req.body.creator;
     let course = req.body.coursecode;

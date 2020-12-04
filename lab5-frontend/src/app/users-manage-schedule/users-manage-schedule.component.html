@@ -1,18 +1,23 @@
-<button (click)="switcher()">{{bName}}</button>
-<div *ngIf="view; else elseblock">
-    <div *ngIf="has">
-        <div *ngFor="let sc of scArray">
-            Name:{{sc.scheduleName}}, Is It Public: {{sc.isPublic}}, Last modified: {{sc.modified}}
-            <br> Courses in this schedule:
-            <div *ngFor="let course of sc.courses">
-                {{course.subject}}, {{course.course}}
+<div class="bit-panel">
+    <button (click)="switcher()">{{bName}}</button>
+    <div *ngIf="view; else elseblock">
+        <div *ngIf="has">
+            <div *ngFor="let sc of scArray">
+                <div class="block">
+                    Name:{{sc.scheduleName}}, Is It Public: {{sc.isPublic}}, Last modified: {{sc.modified}}
+                    <br> Courses in this schedule:
+                    <div *ngFor="let course of sc.courses">
+                        {{course.subject}}, {{course.course}}
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
+    <ng-template #elseblock><br>
+        <input [(ngModel)]="scNameInput" placeholder="Enter Schedule name"><button (click)="searchForSchedule()">Submit</button>
+        <div *ngIf="scExists">
+            Public:<input [(ngModel)]="publicS" type="checkbox"><button (click)="changeScheduleState()">Change</button>
+        </div>
+    </ng-template>
 </div>
-<ng-template #elseblock><br>
-    <input [(ngModel)]="scNameInput" placeholder="Enter Schedule name"><button (click)="searchForSchedule()">Submit</button>
-    <div *ngIf="scExists">
-        Public:<input [(ngModel)]="publicS" type="checkbox"><button (click)="changeScheduleState()">Change</button>
-    </div>
-</ng-template>

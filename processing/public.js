@@ -1,6 +1,29 @@
 const subjectData = require('../resources/Lab5-subject-data.json');
 const timetableData = require('../resources/Lab3-timetable-data.json');
 
+module.exports.getFull = (subject, course) => {
+    try {
+        let setter = false;
+        course = course.toString().toUpperCase()
+        for (let i = 0; i < timetableData.length; i++) {
+            if (!setter) {
+                if (timetableData[i].subject == subject.toUpperCase() && timetableData.catalog_nbr.toString().toUpperCase() == course) {
+                    setter = true
+
+                    return timetableData[i];
+                }
+            } else {
+                break;
+            }
+
+        }
+        return false;
+    } catch {
+        return false
+    }
+
+}
+
 module.exports.unauthSearch = (query, course) => {
     let found = null;
     //Add sanitization
