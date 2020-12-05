@@ -39,7 +39,7 @@ getUser(value){
 }
   submitLogin(){
     //Send post request to users-login
-    this.http.post('http://localhost:3000/secure/auth', {email:this.email, password:this.password}).subscribe(data=>{
+    this.http.post('http://'+window.location.hostname+':3000/secure/auth', {email:this.email, password:this.password}).subscribe(data=>{
       this.setServer(data)
       if(this.serverStatus(data)){
         console.log('here')

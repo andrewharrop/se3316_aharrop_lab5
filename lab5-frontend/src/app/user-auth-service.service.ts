@@ -22,7 +22,7 @@ export class UserAuthServiceService {
   registerUser(user){
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post<any>('http://localhost:3000/users/register', user, {headers:headers, observe:'response'});
+    return this.http.post<any>('http://'+window.location.hostname+':3000/users/register', user, {headers:headers, observe:'response'});
   }
   storeUserData(token, user){
     localStorage.setItem('id_token',token);
@@ -35,7 +35,7 @@ export class UserAuthServiceService {
     this.loadToken();
     headers.append('Authorization',this.authToken)
     headers.append('Content-Type', 'application/json');
-    return this.http.get<any>('http://localhost:3000/secure/profile', {headers:headers, observe:'response'});
+    return this.http.get<any>('http://'+window.location.hostname+':3000/secure/profile', {headers:headers, observe:'response'});
   }
   loadToken(){
     const token = localStorage.getItem('id_token');

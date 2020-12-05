@@ -24,7 +24,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   submitRegistarion(){
-    this.http.post('http://localhost:3000/secure/register', {name:this.name, username:this.username, email:this.email, password:this.password, password2:this.password2}).subscribe(data=>this.setServer(data));
+    this.http.post('http://'+window.location.hostname+':3000/secure/register', {name:this.name, username:this.username, email:this.email, password:this.password, password2:this.password2}).subscribe(data=>this.setServer(data));
   }
 
 }
